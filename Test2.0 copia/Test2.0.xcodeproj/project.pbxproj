@@ -17,7 +17,8 @@
 		940BC0662743AEB80022D8B6 /* Test2_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940BC0652743AEB80022D8B6 /* Test2_0UITests.swift */; };
 		940BC0682743AEB80022D8B6 /* Test2_0UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940BC0672743AEB80022D8B6 /* Test2_0UITestsLaunchTests.swift */; };
 		940BC0752743AF860022D8B6 /* AddLesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940BC0742743AF860022D8B6 /* AddLesson.swift */; };
-		940BC0772743AFC80022D8B6 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940BC0762743AFC80022D8B6 /* Lesson.swift */; };
+		940BC0792743E1540022D8B6 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940BC0782743E1540022D8B6 /* Lesson.swift */; };
+		940BC07B2744F9560022D8B6 /* LessonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940BC07A2744F9550022D8B6 /* LessonCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +52,8 @@
 		940BC0652743AEB80022D8B6 /* Test2_0UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2_0UITests.swift; sourceTree = "<group>"; };
 		940BC0672743AEB80022D8B6 /* Test2_0UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2_0UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		940BC0742743AF860022D8B6 /* AddLesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLesson.swift; sourceTree = "<group>"; };
-		940BC0762743AFC80022D8B6 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		940BC0782743E1540022D8B6 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		940BC07A2744F9550022D8B6 /* LessonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,14 +104,15 @@
 		940BC0442743AEB80022D8B6 /* Test2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				940BC0782743E1540022D8B6 /* Lesson.swift */,
 				940BC0452743AEB80022D8B6 /* Test2_0App.swift */,
 				940BC0472743AEB80022D8B6 /* ContentView.swift */,
+				940BC07A2744F9550022D8B6 /* LessonCard.swift */,
 				940BC0742743AF860022D8B6 /* AddLesson.swift */,
 				940BC0492743AEB80022D8B6 /* Assets.xcassets */,
 				940BC04E2743AEB80022D8B6 /* Persistence.swift */,
 				940BC0502743AEB80022D8B6 /* Test2_0.xcdatamodeld */,
 				940BC04B2743AEB80022D8B6 /* Preview Content */,
-				940BC0762743AFC80022D8B6 /* Lesson.swift */,
 			);
 			path = Test2.0;
 			sourceTree = "<group>";
@@ -270,9 +273,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				940BC0752743AF860022D8B6 /* AddLesson.swift in Sources */,
+				940BC07B2744F9560022D8B6 /* LessonCard.swift in Sources */,
 				940BC04F2743AEB80022D8B6 /* Persistence.swift in Sources */,
 				940BC0522743AEB80022D8B6 /* Test2_0.xcdatamodeld in Sources */,
-				940BC0772743AFC80022D8B6 /* Lesson.swift in Sources */,
+				940BC0792743E1540022D8B6 /* Lesson.swift in Sources */,
 				940BC0482743AEB80022D8B6 /* ContentView.swift in Sources */,
 				940BC0462743AEB80022D8B6 /* Test2_0App.swift in Sources */,
 			);

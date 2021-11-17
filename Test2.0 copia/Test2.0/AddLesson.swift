@@ -10,6 +10,7 @@ import CoreData
 
 struct AddLesson: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Binding var showmodal : Bool
     @State private var lessonText: String = ""
     @State private var lessonTitle: String = ""
     @State private var lessonTag: String = ""
@@ -18,7 +19,7 @@ struct AddLesson: View {
     var body: some View {
         NavigationView{
             VStack(alignment: .leading){
-                Spacer(minLength: 300)
+                Spacer(minLength: 50)
                 Text("Title:")
                 TextField("Title...", text: $lessonTitle)
                     .padding(10)
@@ -32,16 +33,16 @@ struct AddLesson: View {
                 Text("Paste your lesson here:")
                 
                 ZStack{
-                    TextEditor(text: $lessonText)
+                    TextEditor(text: $lessonText).border(Color.black,width: 3).cornerRadius(10)
                 }
-            }
+            }.padding()
             
             .navigationTitle("New lesson")
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
                         addLesson()
-                        presentationMode.wrappedValue.dismiss()
+                        showmodal = false
                     }, label: {
                         Text("Done")
                     })
@@ -82,8 +83,8 @@ struct AddLesson: View {
     }
 }
 
-struct AddLesson_Previews: PreviewProvider {
-    static var previews: some View {
-        AddLesson()
-    }
-}
+//struct AddLesson_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddLesson()
+//    }
+//}

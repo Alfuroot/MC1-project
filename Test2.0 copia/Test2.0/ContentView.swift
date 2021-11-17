@@ -10,26 +10,36 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(entity: Item.entity(),
-        sortDescriptors: [],
-        animation: .default)
+                  sortDescriptors: [NSSortDescriptor(key: "title", ascending: false)],
+                  animation: .default)
     
     private var items: FetchedResults<Item>;
-    @State private var showmodal: Bool = false
+    @State var showmodal: Bool = false
+    @StateObject var itemino: [Item]
     
     var body: some View {
         VStack {
             NavigationView{
                 List {
                     ForEach(items) { item in
-                            Text("\(item.title!)")
+                        Section{
+                            ZStack{
+                                LessonCard(item: item)
+                            NavigationLink(destination: Lesson(item: item)){
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .frame(width: 0)
+                            .opacity(0)
+                            }
                         }
-                    
-                .onDelete(perform: delete)
-                        .foregroundColor(Color.gray)
-                        .padding()
-                        .cornerRadius(10)
+                        
+                    }
+                    .onDelete(perform: delete)
+                    .foregroundColor(Color.gray)
+                    .padding()
+                    .cornerRadius(10)
                 }
                 .navigationTitle("My Lessons")
                 .toolbar{
@@ -47,13 +57,13 @@ struct ContentView: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }.sheet(isPresented: $showmodal) {
-            AddLesson()
+            AddLesson(showmodal: $showmodal)
         }
     }
     func delete(at offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
-
+            
             do {
                 try viewContext.save()
             } catch {

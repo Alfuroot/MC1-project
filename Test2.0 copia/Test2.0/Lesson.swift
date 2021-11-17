@@ -1,28 +1,25 @@
 //
-//  LessonCard.swift
-//  ProjectTest
+//  Lesson.swift
+//  Test2.0
 //
-//  Created by Giuseppe Carannante on 11/11/21.
+//  Created by Giuseppe Carannante on 16/11/21.
 //
 
-import UIKit
+import SwiftUI
 
-class Lesson: NSObject {
-    var pin: Bool
-    var title: String
-    var tag: String
-    var pinned: Bool
-    var txtdoc: Bool
-    var audiodoc: Bool
-    var imgdoc: Bool
+struct Lesson: View {
     
-    init(title: String, tag: String) {
-        self.title = title
-        self.tag = tag
-        self.pinned = false
-        self.txtdoc = false
-        self.audiodoc = false
-        self.imgdoc = false
-        self.pin = false
+    var item: Item
+    
+    var body: some View {
+        VStack{
+            Text("\(item.lessontxt!)")
+        }
     }
 }
+
+//struct Lesson_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Lesson()
+//    }
+//}
