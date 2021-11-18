@@ -17,7 +17,6 @@ struct ContentView: View {
     
     private var items: FetchedResults<Item>;
     @State var showmodal: Bool = false
-    @StateObject var itemino: [Item]
     
     var body: some View {
         VStack {
@@ -45,6 +44,7 @@ struct ContentView: View {
                 .toolbar{
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button(action: {
+                            print("aaaa")
                             showmodal = true
                         }, label: {
                             Image(systemName: "plus")

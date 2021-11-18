@@ -10,11 +10,38 @@ import SwiftUI
 struct Lesson: View {
     
     var item: Item
-    
+    @State var showingActionSheet: Bool = false
+    @State var showaudio: Bool = false
     var body: some View {
-        VStack{
+        NavigationView{
             Text("\(item.lessontxt!)")
+            
         }
+        .sheet(isPresented: $showaudio) {
+            AudioReform(audioRecorder: AudioRecorder())
+        }
+        .confirmationDialog("",isPresented: $showingActionSheet) {
+            Button("Audio reformulation"){
+                showaudio = true
+            }
+            Button("Associate image"){
+                
+            }
+            Button("Writing reformulation"){
+                
+            }
+        }
+        .navigationTitle("\(item.title!)")
+        .toolbar{
+            ToolbarItem(placement: .navigationBarTrailing){
+                Button(action: {
+                    self.showingActionSheet = true
+                }, label: {
+                    Image(systemName: "square.and.pencil")
+                })
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
