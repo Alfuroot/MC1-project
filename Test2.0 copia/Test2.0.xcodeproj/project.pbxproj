@@ -23,7 +23,6 @@
 		945386342747CDB40083382B /* customAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945386332747CDB40083382B /* customAlert.swift */; };
 		945386362747CEF70083382B /* TextReform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945386352747CEF70083382B /* TextReform.swift */; };
 		945386382747E5910083382B /* MyLesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945386372747E5910083382B /* MyLesson.swift */; };
-		9453863A2747E5F60083382B /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945386392747E5F60083382B /* PhotoPicker.swift */; };
 		94FA46AF274553750079DFBE /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46AE274553750079DFBE /* AudioView.swift */; };
 		94FA46B1274554590079DFBE /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46B0274554590079DFBE /* AudioRecorder.swift */; };
 		94FA46B3274554E60079DFBE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46B2274554E60079DFBE /* Extensions.swift */; };
@@ -68,7 +67,6 @@
 		945386332747CDB40083382B /* customAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customAlert.swift; sourceTree = "<group>"; };
 		945386352747CEF70083382B /* TextReform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextReform.swift; sourceTree = "<group>"; };
 		945386372747E5910083382B /* MyLesson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyLesson.swift; path = ../../../../Downloads/MyLesson.swift; sourceTree = "<group>"; };
-		945386392747E5F60083382B /* PhotoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoPicker.swift; path = ../../../../Downloads/PhotoPicker.swift; sourceTree = "<group>"; };
 		94FA46AE274553750079DFBE /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		94FA46B0274554590079DFBE /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		94FA46B2274554E60079DFBE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 				940BC0492743AEB80022D8B6 /* Assets.xcassets */,
 				945386332747CDB40083382B /* customAlert.swift */,
 				940BC04E2743AEB80022D8B6 /* Persistence.swift */,
-				945386392747E5F60083382B /* PhotoPicker.swift */,
 				940BC0822745282C0022D8B6 /* AudioReform.swift */,
 				94FA46AE274553750079DFBE /* AudioView.swift */,
 				94FA46B0274554590079DFBE /* AudioRecorder.swift */,
@@ -314,7 +311,6 @@
 				940BC0522743AEB80022D8B6 /* Test2_0.xcdatamodeld in Sources */,
 				940BC0792743E1540022D8B6 /* Lesson.swift in Sources */,
 				940BC0482743AEB80022D8B6 /* ContentView.swift in Sources */,
-				9453863A2747E5F60083382B /* PhotoPicker.swift in Sources */,
 				945386362747CEF70083382B /* TextReform.swift in Sources */,
 				94FA46B3274554E60079DFBE /* Extensions.swift in Sources */,
 				94FA46B727455B230079DFBE /* AudioPlayer.swift in Sources */,
