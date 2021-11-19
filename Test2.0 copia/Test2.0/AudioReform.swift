@@ -7,6 +7,7 @@ struct AudioReform: View {
     
     @ObservedObject var audioRecorder: AudioRecorder
     @Binding var item: Item
+    @Binding var showmodal: Bool
     @State var name: String = ""
     
     var body: some View {

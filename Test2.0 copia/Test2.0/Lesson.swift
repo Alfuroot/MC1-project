@@ -13,6 +13,8 @@ struct Lesson: View {
     @State var showingActionSheet: Bool = false
     @State var showmodal: Bool = false
     @State var showaudio: Bool = false
+    @State var showwriting: Bool = false
+    @State var showimage: Bool = false
     var body: some View {
         NavigationView{
             Text("\(item.lessontxt!)")
@@ -20,9 +22,13 @@ struct Lesson: View {
         }
         .sheet(isPresented: $showmodal) {
             if (showaudio == true){
-                AudioReform(audioRecorder: AudioRecorder(),item: $item)
+                AudioReform(audioRecorder: AudioRecorder(),item: $item, showmodal: $showmodal).onDisappear(perform: {showaudio = false})
             }
-            else {
+            else if (showwriting == true){
+                TextReform(item: $item, showmodal: $showmodal).onDisappear(perform: {showwriting = false})
+            }
+            else if (showimage == true){
+                
             }
         }
         .confirmationDialog("",isPresented: $showingActionSheet) {
@@ -35,6 +41,7 @@ struct Lesson: View {
             }
             Button("Writing reformulation"){
                 showmodal = true
+                showwriting = true
             }
         }
         .navigationTitle("\(item.title!)")

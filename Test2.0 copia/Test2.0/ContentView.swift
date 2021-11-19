@@ -26,7 +26,7 @@ struct ContentView: View {
                         Section{
                             ZStack{
                                 LessonCard(item: item)
-                            NavigationLink(destination: Lesson(item: item)){
+                            NavigationLink(destination: MyLesson(item: item)){
                             }
                             .buttonStyle(PlainButtonStyle())
                             .frame(width: 0)
@@ -44,7 +44,6 @@ struct ContentView: View {
                 .toolbar{
                     ToolbarItem(placement: .navigationBarTrailing){
                         Button(action: {
-                            print("aaaa")
                             showmodal = true
                         }, label: {
                             Image(systemName: "plus")
