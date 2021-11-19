@@ -6,15 +6,17 @@ import AVFoundation
 struct AudioReform: View {
     
     @ObservedObject var audioRecorder: AudioRecorder
+    @Binding var item: Item
+    @State var name: String = ""
     
     var body: some View {
         NavigationView{
             VStack {
                 
-                RecordingsList(audioRecorder: audioRecorder)
+                RecordingsList(audioRecorder: audioRecorder, item: $item, name: $name)
                 
                 if audioRecorder.recording == false {
-                    Button(action: {self.audioRecorder.startRecording()}) {
+                    Button(action: {self.audioRecorder.startRecording(title: item.title!,name: name)}) {
                         Image(systemName: "circle.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -39,8 +41,8 @@ struct AudioReform: View {
     }
 }
 
-struct audioReform_Previews: PreviewProvider {
-    static var previews: some View {
-        AudioReform(audioRecorder: AudioRecorder())
-    }
-}
+//struct audioReform_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AudioReform(audioRecorder: AudioRecorder())
+//    }
+//}

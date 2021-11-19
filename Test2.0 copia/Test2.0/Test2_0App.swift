@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct Test2_0App: App {
     let persistenceController = PersistenceController.shared
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

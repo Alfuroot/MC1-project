@@ -9,26 +9,32 @@ import SwiftUI
 
 struct Lesson: View {
     
-    var item: Item
+    @State var item: Item
     @State var showingActionSheet: Bool = false
+    @State var showmodal: Bool = false
     @State var showaudio: Bool = false
     var body: some View {
         NavigationView{
             Text("\(item.lessontxt!)")
             
         }
-        .sheet(isPresented: $showaudio) {
-            AudioReform(audioRecorder: AudioRecorder())
+        .sheet(isPresented: $showmodal) {
+            if (showaudio == true){
+                AudioReform(audioRecorder: AudioRecorder(),item: $item)
+            }
+            else {
+            }
         }
         .confirmationDialog("",isPresented: $showingActionSheet) {
             Button("Audio reformulation"){
                 showaudio = true
+                showmodal = true
             }
             Button("Associate image"){
-                
+                showmodal = true
             }
             Button("Writing reformulation"){
-                
+                showmodal = true
             }
         }
         .navigationTitle("\(item.title!)")

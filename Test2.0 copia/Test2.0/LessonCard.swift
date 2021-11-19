@@ -24,7 +24,7 @@ struct LessonCard: View {
                 Image(systemName: "mic.fill")
             }
         }
-        }
+    }
 }
 
 //struct LessonCard_Previews: PreviewProvider {

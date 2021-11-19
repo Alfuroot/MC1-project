@@ -7,7 +7,7 @@
         <attribute name="imgicon" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lessontxt" optional="YES" attributeType="String"/>
         <attribute name="pin" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="reformtxt" optional="YES" attributeType="String"/>
+        <attribute name="reformtxt" optional="YES" attributeType="Transformable"/>
         <attribute name="tag" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="txticon" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

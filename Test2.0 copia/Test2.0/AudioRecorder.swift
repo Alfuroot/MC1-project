@@ -18,18 +18,15 @@ class AudioRecorder: NSObject,ObservableObject {
     }
     
     let objectWillChange = PassthroughSubject<AudioRecorder, Never>()
-    
-    
     var audioRecorder: AVAudioRecorder!
     var recordings = [Recording]()
-    
     var recording = false {
         didSet {
             objectWillChange.send(self)
         }
     }
     
-    func startRecording() {
+    func startRecording(title: String, name: String) {
             let recordingSession = AVAudioSession.sharedInstance()
         
         do {
@@ -39,7 +36,7 @@ class AudioRecorder: NSObject,ObservableObject {
                     print("Failed to set up recording session")
                 }
         let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let audioFilename = documentPath.appendingPathComponent("\(Date().toString(dateFormat: "dd-MM-YY_'at'_HH:mm:ss")).m4a")
+        let audioFilename = documentPath.appendingPathComponent("\(title)\(name).m4a")
         let settings = [
                     AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
                     AVSampleRateKey: 12000,
@@ -59,15 +56,15 @@ class AudioRecorder: NSObject,ObservableObject {
         }
     
     func stopRecording() {
+        
             audioRecorder.stop()
             recording = false
         
-            fetchRecordings()
+        fetchRecordings()
         }
     
     func fetchRecordings() {
             recordings.removeAll()
-            
             let fileManager = FileManager.default
             let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
             let directoryContents = try! fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
