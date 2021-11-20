@@ -26,7 +26,7 @@ class AudioRecorder: NSObject,ObservableObject {
         }
     }
     
-    func startRecording(title: String, name: String) {
+    func startRecording(title: String) {
             let recordingSession = AVAudioSession.sharedInstance()
         
         do {
@@ -36,7 +36,7 @@ class AudioRecorder: NSObject,ObservableObject {
                     print("Failed to set up recording session")
                 }
         let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let audioFilename = documentPath.appendingPathComponent("\(title)\(name).m4a")
+        let audioFilename = documentPath.appendingPathComponent("\(title).m4a")
         let settings = [
                     AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
                     AVSampleRateKey: 12000,
@@ -54,6 +54,28 @@ class AudioRecorder: NSObject,ObservableObject {
                 }
         
         }
+    
+    func deleteRecording(url: URL){
+        do {
+            try FileManager.default.removeItem(at: url)
+        } catch {
+            print("Could not delete file: \(error)")
+        }
+        
+        fetchRecordings()
+    }
+    
+    func saveRecording(title: String, text: String){
+        do {
+            let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            let documentDirectory = URL(fileURLWithPath: path)
+            let originPath = documentDirectory.appendingPathComponent("\(title).m4a")
+            let destinationPath = documentDirectory.appendingPathComponent("\(title)-\(text).m4a")
+            try FileManager.default.moveItem(at: originPath, to: destinationPath)
+        } catch {
+            print(error)
+        }
+    }
     
     func stopRecording() {
         

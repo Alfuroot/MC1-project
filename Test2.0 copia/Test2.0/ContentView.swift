@@ -26,7 +26,7 @@ struct ContentView: View {
                         Section{
                             ZStack{
                                 LessonCard(item: item)
-                            NavigationLink(destination: MyLesson(item: item)){
+                                NavigationLink(destination: MyLesson(audioRecorder: AudioRecorder(), item: item)){
                             }
                             .buttonStyle(PlainButtonStyle())
                             .frame(width: 0)

@@ -5,19 +5,22 @@ import AVFoundation
 
 struct AudioReform: View {
     
+    @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var audioRecorder: AudioRecorder
     @Binding var item: Item
     @Binding var showmodal: Bool
     @State var name: String = ""
+    @State var isShown: Bool = false
+    @State var text: String = ""
     
     var body: some View {
         NavigationView{
+            ZStack{
+                
             VStack {
                 
-                RecordingsList(audioRecorder: audioRecorder, item: $item, name: $name)
-                
                 if audioRecorder.recording == false {
-                    Button(action: {self.audioRecorder.startRecording(title: item.title!,name: name)}) {
+                    Button(action: {self.audioRecorder.startRecording(title: item.title!)}) {
                         Image(systemName: "circle.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -27,7 +30,10 @@ struct AudioReform: View {
                             .padding(.bottom, 40)
                     }
                 } else {
-                    Button(action: {self.audioRecorder.stopRecording()}) {
+                    Button(action: {
+                        isShown = true
+                        self.audioRecorder.stopRecording()
+                    }) {
                         Image(systemName: "stop.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -38,6 +44,22 @@ struct AudioReform: View {
                     }
                 }
             }.navigationBarTitle("Voice recorder")
+                AZAlert(isShown: $isShown, text: $text, onDone: {text in
+                    setAudio()
+                    self.audioRecorder.saveRecording(title: item.title!, text: text)
+                })
+            }
+        }
+    }
+    func setAudio(){
+        withAnimation {
+            item.audioicon = true
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
 }

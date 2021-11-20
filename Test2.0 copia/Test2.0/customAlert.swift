@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct AZAlert: View {
+    
     let screenSize = UIScreen.main.bounds
     var title: String = ""
     @Binding var isShown: Bool
     @Binding var text: String
     var onDone: (String) -> Void = { _ in }
     var onCancel: () -> Void = { }
+    
     var body: some View {
+    VStack{
         VStack(spacing: 20) {
             Text(title)
                 .font(.headline)
-            Text("Please Provide a title")
+            Text("Please provide a title")
             TextField("Title...", text: $text)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             HStack(spacing: 20) {
@@ -37,8 +40,10 @@ struct AZAlert: View {
         .background(Color(#colorLiteral(red: 0.9268686175, green: 0.9416290522, blue: 0.9456014037, alpha: 1)))
         .clipShape(RoundedRectangle(cornerRadius: 20.0, style: .continuous))
         .offset(y: isShown ? 0 : screenSize.height)
-        //        .animation(.spring())
+        .animation(.spring(), value: 1)
         .shadow(color: Color(#colorLiteral(red: 0.8596749902, green: 0.854565084, blue: 0.8636032343, alpha: 1)), radius: 6, x: -9, y: -9)
+    }
+    
     }
 }
 struct AZAlert_Previews: PreviewProvider {
