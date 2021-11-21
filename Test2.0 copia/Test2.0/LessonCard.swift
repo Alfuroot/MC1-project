@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LessonCard: View {
     
-    var item: Item
+    @Binding var item: Item
     
     var body: some View {
         VStack (alignment: .leading){

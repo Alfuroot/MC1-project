@@ -26,7 +26,26 @@ struct ContentView: View {
                     ForEach(items) { item in
                         Section{
                             HStack{
-                                LessonCard(item: item)
+                                VStack (alignment: .leading){
+                                    Text("\(item.title!)")
+                                        .foregroundColor(Color.black)
+                                        .bold();
+                                    
+                                    
+                                    Text("\(item.tag!)\n");
+                                    HStack{
+                                        if (item.audioicon == true){
+                                            Image(systemName: "mic.fill")
+                                        }
+                                        if (item.imgicon == true){
+                                            Image(systemName: "photo")
+                                        }
+                                        if (item.txticon == true){
+                                            Image(systemName: "doc.text.fill")
+                                        }
+                                    }
+                                }
+                            
                                 NavigationLink(destination: MyLesson(audioRecorder: AudioRecorder(), item: item)){
                                 }
                                 .buttonStyle(PlainButtonStyle())
