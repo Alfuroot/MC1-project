@@ -15,6 +15,8 @@ import CoreData
 struct MyLesson: View {
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var audioRecorder: AudioRecorder
+    @ObservedObject var audioPlayer = AudioPlayer()
+    @State var isPlaying = false
     @State var item: Item
     @State var showingActionSheet: Bool = false
     @State var showmodal: Bool = false
@@ -24,11 +26,7 @@ struct MyLesson: View {
     @State private var image = UIImage()
     @State private var showPicker = false
     @State private var imgarray: [UIImage] = []
-    @State var text = ""
-    var nameReformulation = "Name Reformulation"
-    var number = "01.40"
-    @State var isPlaying = false
-    @State var isPinned = true
+    @State var txtarray: [String] = []
     var isNotCorrect = false
     var lessonIsEmpty = false
     @State var deleteFile: Bool = false
@@ -72,7 +70,66 @@ struct MyLesson: View {
                     HStack{
                         Spacer(minLength: 16)
                         
-                        RecordingsList(audioRecorder: AudioRecorder(), item: $item)
+                        ForEach((audioRecorder.recordings), id: \.createdAt) { recording in
+                            if (recording.fileURL.lastPathComponent.contains("\(item.title!)")) {
+                                HStack{
+                                    HStack {
+                                        if audioPlayer.isPlaying == false {
+                                            Button(action: {
+                                                self.audioPlayer.startPlayback(audio: recording.fileURL)
+                                            }) {
+                                                Image(systemName: "play.circle.fill").font(Font.system(size: 55))
+                                            }
+                                        } else {
+                                            Button(action: {
+                                                self.audioPlayer.stopPlayback()
+                                            }) {
+                                                Image(systemName: "stop.circle.fill").font(Font.system(size: 55))
+                                            }
+                                        }
+                                        VStack(alignment: .leading){
+                                            let audioAsset = AVURLAsset.init(url: recording.fileURL, options: nil)
+                                            let duration = audioAsset.duration
+                                            let durationInSeconds = CMTimeGetSeconds(duration)
+                                            let formatter = DateComponentsFormatter()
+                                            Text("\(recording.fileURL.lastPathComponent)")
+                                                .font(.body)
+                                                .foregroundColor(.black)
+                                                .fontWeight(.bold)
+                                                .padding(EdgeInsets(top: 0, leading: 0, bottom: -8, trailing: 0))
+                                            
+                                            Text("\(formatter.string(from: durationInSeconds)!)")
+                                                .font(.subheadline)
+                                                .foregroundColor(.gray)
+                                        }
+                                        VStack{
+                                            //                    if isPinned{ Image(systemName: "pin.fill").font(Font.system(size: 17)
+                                            //                    )
+                                            //                        .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))}
+                                            Spacer()
+                                            Text("...")
+                                        }.padding(EdgeInsets(top: 5, leading: 27, bottom: 5, trailing: 5))
+                                    }.frame(width: 300, height: 90)
+                                    .background(Color.white)
+                                    .contextMenu {
+                                            Button(action: {
+                                                // insert pin action
+                                            }) {
+                                                Text("Pin")
+                                                Image(systemName: "pin.fill")
+                                            }
+                                            Button(action: {
+                                                audioRecorder.deleteRecording(url: recording.fileURL)
+                                            }) {
+                                                Text("Delete")
+                                                Image(systemName: "trash.fill")
+                                            }
+                                    }
+                                
+                                }
+                                .cornerRadius(10)
+                            }
+                        }.frame(width: 300, height: 90)
                         
                         Spacer(minLength: 15)
                     }
@@ -117,8 +174,6 @@ struct MyLesson: View {
                                             Image(systemName: "trash.fill")
                                         }
                                     }
-                                if isPinned{ Image(systemName: "pin.fill").font(Font.system(size: 17)
-                                ).frame(width: 130, height: 130, alignment: .topTrailing)}
                             }
                         }.frame(width: 150, height: 150)
                             .clipped()
@@ -144,29 +199,20 @@ struct MyLesson: View {
                     HStack{
                         Spacer(minLength: 16)
                         
-                        ForEach(0..<10) {_ in
+                        ForEach(txtarray, id: \.self) {txt in
                             VStack(alignment: .leading){
                                 HStack{
-                                    Text("\(nameReformulation)")
+                                    Text("\(txt)")
                                         .font(.body)
                                         .foregroundColor(.black)
-                                        .fontWeight(.bold)
                                         .padding(EdgeInsets(top: 0, leading: 0, bottom: -4, trailing: 0))
-                                    if isNotCorrect{
-                                        Image(systemName: "exclamationmark.triangle").font(Font.system(size: 17, weight: .bold)
-                                        ).foregroundColor(Color.blue)
-                                    }
+//                                    if isNotCorrect{
+//                                        Image(systemName: "exclamationmark.triangle").font(Font.system(size: 17, weight: .bold)
+//                                        ).foregroundColor(Color.blue)
+//                                    }
                                     
                                     Spacer()
-                                    
-                                    if isPinned{ Image(systemName: "pin.fill").font(Font.system(size: 17)
-                                    )
-                                            .padding(EdgeInsets(top: 3, leading: 0, bottom: 0, trailing: -10))
-                                    }
                                 }
-                                Text("\(text)")
-                                    .font(.body)
-                                    .foregroundColor(.black)
                             }.padding(EdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 15))
                                 .background(Color.white)
                                 .contextMenu {
@@ -177,7 +223,9 @@ struct MyLesson: View {
                                         Image(systemName: "pin.fill")
                                     }
                                     Button(action: {
-                                        //                                        mediaItems.delete()
+                                        txtarray.removeAll {$0 == txt}
+                                        addTxtref(txtref: txtarray)
+                                        setTxt(txtbool: txtarray.isEmpty)
                                     }) {
                                         Text("Delete")
                                         Image(systemName: "trash.fill")
@@ -214,7 +262,7 @@ struct MyLesson: View {
                 AudioReform(audioRecorder: AudioRecorder(),item: $item, showmodal: $showmodal).onDisappear(perform: {showaudio = false})
             }
             else if (showwriting == true){
-                TextReform(item: $item, showmodal: $showmodal).onDisappear(perform: {showwriting = false})
+                TextReform(item: $item, showmodal: $showmodal, txtarray: $txtarray).onDisappear(perform: {showwriting = false})
             }
         }
         .confirmationDialog("",isPresented: $showingActionSheet) {
@@ -232,12 +280,39 @@ struct MyLesson: View {
         }
         
         .onAppear(perform: {
+            if (item.reformtxt != nil){
+                txtarray = item.reformtxt!
+                setTxt(txtbool: txtarray.isEmpty)
+            }
             if (item.strdimg != nil){
                 imgarray = imagesFromCoreData(object: item.strdimg)!
                 setImg(imgbool: imgarray.isEmpty)
             }
         })
         
+    }
+    func setTxt(txtbool: Bool){
+        withAnimation {
+            item.txticon = !txtbool
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+    
+    func addTxtref(txtref: [String]){
+        withAnimation {
+            item.reformtxt = txtref
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
     
     func setImg(imgbool: Bool){

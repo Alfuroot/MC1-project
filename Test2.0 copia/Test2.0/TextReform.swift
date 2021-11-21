@@ -10,12 +10,14 @@ import SwiftUI
 struct TextReform: View {
     
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) private var viewContext
     
     @Binding var item: Item
     @Binding var showmodal: Bool
     @State private var showTitleWindow = false
     @State private var lessonContent: String = ""
     @State private var lessonTitle: String = ""
+    @Binding var txtarray: [String]
     
     var body: some View {
         NavigationView {
@@ -32,23 +34,36 @@ struct TextReform: View {
                                 .cornerRadius(10)
                         }
                         ////////////////////////////////////////////////////////////////////////////////////////////
-                        AZAlert(title: "Add Item", isShown: $showTitleWindow, text: $lessonTitle, onDone: { text in
-                            item.reformtxt = text
-                            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-                            presentationMode.wrappedValue.dismiss()
-                            }
-                        })
+//                        AZAlert(title: "Add Item", isShown: $showTitleWindow, text: $lessonTitle, onDone: { text in
+//                            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+//                            presentationMode.wrappedValue.dismiss()
+//                            }
+//                        })
                     }
                     .navigationTitle("Text Reformulation")
                 /////////////////////////////////  NAVIGATION BAR ITEMS ////////////////////////////////////////////////////////////
                 .navigationBarItems(leading: Button(action: { presentationMode.wrappedValue.dismiss()}) { Text("Cancel") },
-                                    trailing:  Button(action: { showTitleWindow.toggle()}) {   Text("Save")  })
+                                    trailing:  Button(action: {
+                    txtarray.append(lessonContent)
+                    addTxtref()
+                    showTitleWindow.toggle()}) {   Text("Save")  })
                 ////////////////////////////////////////////////////////////////////////////////////////////
                 .padding()
                 .background(Color.gray)
             
         }
     }
+    }
+    func addTxtref(){
+        withAnimation {
+            item.reformtxt = txtarray
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
 }
 

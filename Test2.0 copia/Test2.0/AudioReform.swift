@@ -47,6 +47,7 @@ struct AudioReform: View {
                 AZAlert(isShown: $isShown, text: $text, onDone: {text in
                     setAudio()
                     self.audioRecorder.saveRecording(title: item.title!, text: text)
+                    showmodal = false
                 })
             }
         }

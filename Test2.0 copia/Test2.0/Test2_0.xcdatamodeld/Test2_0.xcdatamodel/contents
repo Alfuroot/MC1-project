@@ -5,7 +5,7 @@
         <attribute name="imgicon" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lessontxt" optional="YES" attributeType="String"/>
         <attribute name="pin" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="reformtxt" optional="YES" attributeType="String"/>
+        <attribute name="reformtxt" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="strdimg" optional="YES" attributeType="Binary"/>
         <attribute name="tag" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>

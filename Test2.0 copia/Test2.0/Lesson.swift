@@ -24,9 +24,9 @@ struct Lesson: View {
             if (showaudio == true){
                 AudioReform(audioRecorder: AudioRecorder(),item: $item, showmodal: $showmodal).onDisappear(perform: {showaudio = false})
             }
-            else if (showwriting == true){
-                TextReform(item: $item, showmodal: $showmodal).onDisappear(perform: {showwriting = false})
-            }
+//            else if (showwriting == true){
+//                TextReform(item: $item, showmodal: $showmodal, txtarray: $txtarray).onDisappear(perform: {showwriting = false})
+//            }
             else if (showimage == true){
                 
             }
