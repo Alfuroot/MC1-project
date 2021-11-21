@@ -17,6 +17,7 @@ struct ContentView: View {
     
     private var items: FetchedResults<Item>;
     @State var showmodal: Bool = false
+    @State private var searchText: String = ""
     
     var body: some View {
         VStack {
@@ -25,14 +26,15 @@ struct ContentView: View {
                     ForEach(items) { item in
                         Section{
                             HStack{
-                                
-                                if (item.pin == true){
                                 LessonCard(item: item)
                                 NavigationLink(destination: MyLesson(audioRecorder: AudioRecorder(), item: item)){
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            .frame(width: 0)
-                            .opacity(0)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                .frame(width: 0)
+                                .opacity(0)
+                                
+                                
+                                if (item.pin == true){
                                     Spacer()
                                     VStack{
                                         Image(systemName: "pin.fill").padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
@@ -70,7 +72,8 @@ struct ContentView: View {
                 }
                 .navigationBarTitleDisplayMode(.inline)
             }
-        }.sheet(isPresented: $showmodal) {
+        }
+        .sheet(isPresented: $showmodal) {
             AddLesson(showmodal: $showmodal)
         }
     }

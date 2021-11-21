@@ -111,7 +111,7 @@ struct MyLesson: View {
                                             binary = coreDataObjectFromImages(images: imgarray)!
                                             addImage(binimage: binary!)
                                             imgarray = imagesFromCoreData(object: item.strdimg)!
-                                            
+                                            setImg(imgbool: imgarray.isEmpty)
                                         }) {
                                             Text("Delete")
                                             Image(systemName: "trash.fill")
@@ -193,22 +193,22 @@ struct MyLesson: View {
                 }.frame(maxHeight: .infinity)
             }.frame(maxWidth: .infinity)
                 .background(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
-                .navigationTitle("My lesson")
-                .navigationBarItems(trailing: Button(action: {
-                    self.showingActionSheet = true
-                }, label: {
-                    Image(systemName: "square.and.pencil")
-                }).sheet(isPresented: $showPicker) {
-                    ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image).onDisappear(perform: {
-                        imgarray.append(image)
-                        binary = coreDataObjectFromImages(images: imgarray)!
-                        addImage(binimage: binary!)
-                        imgarray = imagesFromCoreData(object: item.strdimg)!
-                    })
-                }
-                )
+                
         }
-            .navigationBarHidden(true)
+        .navigationTitle("\(item.title!)")
+        .navigationBarItems(trailing: Button(action: {
+            self.showingActionSheet = true
+        }, label: {
+            Image(systemName: "square.and.pencil")
+        }).sheet(isPresented: $showPicker) {
+            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image).onDisappear(perform: {
+                imgarray.append(image)
+                binary = coreDataObjectFromImages(images: imgarray)!
+                addImage(binimage: binary!)
+                imgarray = imagesFromCoreData(object: item.strdimg)!
+                setImg(imgbool: imgarray.isEmpty)
+            })
+        })
         .sheet(isPresented: $showmodal) {
             if (showaudio == true){
                 AudioReform(audioRecorder: AudioRecorder(),item: $item, showmodal: $showmodal).onDisappear(perform: {showaudio = false})
@@ -230,18 +230,32 @@ struct MyLesson: View {
                 showwriting = true
             }
         }
+        
         .onAppear(perform: {
             if (item.strdimg != nil){
                 imgarray = imagesFromCoreData(object: item.strdimg)!
+                setImg(imgbool: imgarray.isEmpty)
             }
         })
         
     }
     
+    func setImg(imgbool: Bool){
+        withAnimation {
+            item.imgicon = !imgbool
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
     
     func addImage(binimage: Data){
         withAnimation {
             item.strdimg = binimage
+            item.imgicon = true
             do {
                 try viewContext.save()
             } catch {
