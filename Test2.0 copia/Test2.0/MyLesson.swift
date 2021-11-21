@@ -10,7 +10,7 @@ import SwiftUI
 import AVKit
 import PhotosUI
 import CoreData
-
+import Speech
 
 struct MyLesson: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -27,6 +27,7 @@ struct MyLesson: View {
     @State private var showPicker = false
     @State private var imgarray: [UIImage] = []
     @State var txtarray: [String] = []
+    @State private var transcription: String = ""
     var isNotCorrect = false
     var lessonIsEmpty = false
     @State var deleteFile: Bool = false
@@ -107,7 +108,7 @@ struct MyLesson: View {
                                             //                    )
                                             //                        .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))}
                                             Spacer()
-                                            Text("...")
+                                            Text("...").onTapGesture(perform: {transcribe(audioURL: recording.fileURL)})
                                         }.padding(EdgeInsets(top: 5, leading: 27, bottom: 5, trailing: 5))
                                     }.frame(width: 300, height: 90)
                                     .background(Color.white)
@@ -239,8 +240,11 @@ struct MyLesson: View {
                         Spacer(minLength: 16)
                     }
                 }.frame(maxHeight: .infinity)
+                Text("\(transcription)")
             }.frame(maxWidth: .infinity)
                 .background(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
+            
+            
                 
         }
         .navigationTitle("\(item.title!)")
@@ -291,6 +295,28 @@ struct MyLesson: View {
         })
         
     }
+    
+    func transcribe(audioURL: URL){
+
+        let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
+        let request = SFSpeechURLRecognitionRequest(url: audioURL)
+
+        
+        request.shouldReportPartialResults = true
+
+        if (recognizer?.isAvailable)! {
+
+            recognizer?.recognitionTask(with: request) { result, error in
+                guard error == nil else { print("Error: \(error!)"); return }
+                guard let result = result else { print("No result!"); return }
+
+                transcription = result.bestTranscription.formattedString
+            }
+        } else {
+            print("Device doesn't support speech recognition")
+        }
+    }
+    
     func setTxt(txtbool: Bool){
         withAnimation {
             item.txticon = !txtbool
