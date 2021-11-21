@@ -12,7 +12,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(entity: Item.entity(),
-                  sortDescriptors: [NSSortDescriptor(key: "title", ascending: false)],
+                  sortDescriptors: [NSSortDescriptor(key: "pin", ascending: false)],
                   animation: .default)
     
     private var items: FetchedResults<Item>;
@@ -24,14 +24,29 @@ struct ContentView: View {
                 List {
                     ForEach(items) { item in
                         Section{
-                            ZStack{
+                            HStack{
+                                
+                                if (item.pin == true){
                                 LessonCard(item: item)
                                 NavigationLink(destination: MyLesson(audioRecorder: AudioRecorder(), item: item)){
                             }
                             .buttonStyle(PlainButtonStyle())
                             .frame(width: 0)
                             .opacity(0)
+                                    Spacer()
+                                    VStack{
+                                        Image(systemName: "pin.fill").padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
+                                    }
+                                }
                             }
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button {
+                                pinLesson(item: item)
+                            } label: {
+                                Label("Add", systemImage: "pin.fill")
+                            }
+                            .tint(.blue)
                         }
                         
                     }
@@ -57,6 +72,17 @@ struct ContentView: View {
             }
         }.sheet(isPresented: $showmodal) {
             AddLesson(showmodal: $showmodal)
+        }
+    }
+    func pinLesson(item: Item){
+        withAnimation {
+            item.pin = true
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
     func delete(at offsets: IndexSet) {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct RecordingsList: View {
     
@@ -48,13 +49,17 @@ struct RecordingRow: View {
                     }
                 }
                 VStack(alignment: .leading){
-                    
+                    let audioAsset = AVURLAsset.init(url: audioURL, options: nil)
+                    let duration = audioAsset.duration
+                    let durationInSeconds = CMTimeGetSeconds(duration)
+                    let formatter = DateComponentsFormatter()
                     Text("\(audioURL.lastPathComponent)")
                         .font(.body)
                         .foregroundColor(.black)
                         .fontWeight(.bold)
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: -8, trailing: 0))
-                    Text("\(item.title!)")
+                    
+                    Text("\(formatter.string(from: durationInSeconds)!)")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }

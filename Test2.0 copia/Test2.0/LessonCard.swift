@@ -20,8 +20,15 @@ struct LessonCard: View {
             
             Text("\(item.tag!)\n");
             HStack{
-                Image(systemName: "mic.fill")
-                Image(systemName: "mic.fill")
+                if (item.audioicon == true){
+                    Image(systemName: "mic.fill")
+                }
+                if (item.imgicon == true){
+                    Image(systemName: "photo")
+                }
+                if (item.txticon == true){
+                    Image(systemName: "doc.text.fill")
+                }
             }
         }
     }
