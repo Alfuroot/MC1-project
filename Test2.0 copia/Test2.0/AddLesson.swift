@@ -18,25 +18,20 @@ struct AddLesson: View {
     
     var body: some View {
         NavigationView{
-            VStack(alignment: .leading){
-                Spacer(minLength: 50)
-                Text("Title:")
-                TextField("Title...", text: $lessonTitle)
-                    .padding(10)
-                    .background(Color.gray)
-                    .cornerRadius(10)
-                Text("Tag:")
-                TextField("Tag...", text: $lessonTag)
-                    .padding(10)
-                    .background(Color.gray)
-                    .cornerRadius(10)
-                Text("Paste your lesson here:")
-                
-                ZStack{
-                    TextEditor(text: $lessonText).border(Color.black,width: 3).cornerRadius(10)
+            VStack{
+                Form{
+                    Section(header: Text("Title and Category:")){
+                        
+                        TextField("Title...", text: $lessonTitle)
+                            
+                        TextField("Category...", text: $lessonTag)
+                        
+                    }
+                    Section(header: Text("Paste your lesson here:")) {
+                        TextEditor(text: $lessonText).frame(height: 250)
+                    }
                 }
-            }.padding()
-            
+            }
             .navigationTitle("New lesson")
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
@@ -45,7 +40,7 @@ struct AddLesson: View {
                         showmodal = false
                     }, label: {
                         Text("Done")
-                    })
+                    }).disabled(lessonText.isEmpty || lessonTitle.isEmpty || lessonTag.isEmpty)
                 }
                 ToolbarItem(placement: .navigationBarLeading){
                     Button(action: {
@@ -55,11 +50,9 @@ struct AddLesson: View {
                     })
                 }
             }.navigationBarTitleDisplayMode(.inline)
-            
-            
         }
-        
     }
+    
     func addLesson(){
         withAnimation {
             let newLesson = Item(context: viewContext)
@@ -70,7 +63,7 @@ struct AddLesson: View {
             newLesson.audioicon = false
             newLesson.imgicon = false
             newLesson.txticon = false
-
+            
             do {
                 try viewContext.save()
             } catch {

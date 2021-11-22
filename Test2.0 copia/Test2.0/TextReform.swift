@@ -21,38 +21,51 @@ struct TextReform: View {
     
     var body: some View {
         NavigationView {
-            GeometryReader { geo in
-                            ////////////////////////////////////////////////////////////////////////////////////////////
-                    ZStack(alignment: .center) {
-                        VStack {
-                            Text("Try to reformulate your lesson with your own words:")
-                                .font(.callout).italic()
-                                .fixedSize(horizontal: false, vertical: true)
-                            ////////////////////////////////////////////////////////////////////////////////////////////
-                            TextEditor(text: $lessonContent)
-                                .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.9, alignment: .center)
-                                .cornerRadius(10)
-                        }
-                        ////////////////////////////////////////////////////////////////////////////////////////////
-//                        AZAlert(title: "Add Item", isShown: $showTitleWindow, text: $lessonTitle, onDone: { text in
-//                            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-//                            presentationMode.wrappedValue.dismiss()
-//                            }
-//                        })
-                    }
-                    .navigationTitle("Text Reformulation")
-                /////////////////////////////////  NAVIGATION BAR ITEMS ////////////////////////////////////////////////////////////
-                .navigationBarItems(leading: Button(action: { presentationMode.wrappedValue.dismiss()}) { Text("Cancel") },
-                                    trailing:  Button(action: {
-                    txtarray.append(lessonContent)
-                    addTxtref()
-                    showTitleWindow.toggle()}) {   Text("Save")  })
-                ////////////////////////////////////////////////////////////////////////////////////////////
-                .padding()
-                .background(Color.gray)
             
-        }
-    }
+            ZStack(alignment: .center) {
+                VStack {
+                    Form{
+                        Section(header: Text("Reformulate your lesson with your own words:")
+                                    .font(.caption).listRowInsets(EdgeInsets(top: 10, leading: 25, bottom: 0, trailing: 0))){
+                            TextEditor(text: $lessonContent).frame( height: 695)
+                        }
+                    }
+                    
+                }
+                if showTitleWindow{Color.black
+                    .opacity(0.1).ignoresSafeArea()}
+                
+//                AZAlert(title: "Writing reformulation", subtitle: "Insert the title to save your text", isShown: $showTitleWindow, text: $lessonTitle, onDone: { text in
+//                    txtarray.append(lessonContent)
+//                    addTxtref()
+//                    showTitleWindow.toggle()
+//                    Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+//                        presentationMode.wrappedValue.dismiss()
+//                    }
+//                })
+                
+            }
+            .navigationTitle("Writing Reformulation")
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button(action: {
+                        showTitleWindow.toggle()
+                    }, label: {
+                        Text("Done")
+                    }).disabled(lessonContent.isEmpty || showTitleWindow)
+                }
+                ToolbarItem(placement: .navigationBarLeading){
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Text("Cancel")
+                    }).disabled(showTitleWindow)
+                }
+                
+            }.navigationBarTitleDisplayMode(.inline)
+            
+            
+        }.interactiveDismissDisabled(showTitleWindow)
     }
     func addTxtref(){
         withAnimation {

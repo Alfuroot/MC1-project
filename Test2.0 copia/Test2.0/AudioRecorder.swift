@@ -65,16 +65,20 @@ class AudioRecorder: NSObject,ObservableObject {
         fetchRecordings()
     }
     
-    func saveRecording(title: String, text: String){
+    func saveRecording(title: String, text: String) -> Bool{
         do {
             let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
             let documentDirectory = URL(fileURLWithPath: path)
             let originPath = documentDirectory.appendingPathComponent("\(title).m4a")
             let destinationPath = documentDirectory.appendingPathComponent("\(title)-\(text).m4a")
+            
+            
             try FileManager.default.moveItem(at: originPath, to: destinationPath)
         } catch {
             print(error)
+            return false
         }
+        return true
     }
     
     func stopRecording() {

@@ -17,35 +17,64 @@ struct ContentView: View {
     
     private var items: FetchedResults<Item>;
     @State var showmodal: Bool = false
-    @State private var searchText: String = ""
+    
     
     var body: some View {
-        VStack {
-            NavigationView{
-                List {
-                    ForEach(items) { item in
-                        Section{
-                            HStack{
-                                VStack (alignment: .leading){
-                                    Text("\(item.title!)")
-                                        .foregroundColor(Color.black)
-                                        .bold();
-                                    
-                                    
-                                    Text("\(item.tag!)\n");
-                                    HStack{
-                                        if (item.audioicon == true){
-                                            Image(systemName: "mic.fill")
-                                        }
-                                        if (item.imgicon == true){
-                                            Image(systemName: "photo")
-                                        }
-                                        if (item.txticon == true){
-                                            Image(systemName: "doc.text.fill")
-                                        }
-                                    }
-                                }
+        NavigationView{
+            
+            //            List {
+            //            ForEach(searchResults, id: \.self) {name in
+            //                    NavigationLink(destination: Text(name)) {
+            //                        Text(name)
+            //                    }
+            //                }
+            //
+            //            }
+            List {
+                ForEach(items) { item in
+                    Section{
+                        VStack (alignment: .leading){
+                            Text("\(item.title!)")
+                                .foregroundColor(item.pin ? Color.white : Color.black)
+                                .font(.title3)
+                                .bold()
+                                .lineLimit(1)
                             
+                            //                                .frame(height: 15)
+                            
+                            
+                            Text("\(item.tag!)\n")
+                                .font(.subheadline)
+                                .foregroundColor(item.pin ? Color.white : Color.black)
+                                .lineLimit(1)
+                            
+                            //                                .frame(height: 18)
+                            
+                            HStack{
+                                
+                                if (item.audioicon == true){
+                                    Image(systemName: "mic")
+                                        .foregroundColor(item.pin ? Color.white : Color.gray)
+                                }
+                                if (item.imgicon == true){
+                                    Image(systemName: "photo")
+                                        .foregroundColor(item.pin ? Color.white : Color.gray)
+                                }
+                                if (item.txticon == true){
+                                    Image(systemName: "highlighter")
+                                        .foregroundColor(item.pin ? Color.white : Color.gray)
+                                }
+                                
+                                Spacer()
+                                
+                                if (item.pin == true){
+                                    Image(systemName: "pin.fill")
+                                        .foregroundColor(Color.white)
+                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: -10))
+                                }
+                                
+                                
+                                
                                 NavigationLink(destination: MyLesson(audioRecorder: AudioRecorder(), item: item)){
                                 }
                                 .buttonStyle(PlainButtonStyle())
@@ -53,52 +82,64 @@ struct ContentView: View {
                                 .opacity(0)
                                 
                                 
-                                if (item.pin == true){
-                                    Spacer()
-                                    VStack{
-                                        Image(systemName: "pin.fill").padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
-                                    }
-                                }
                             }
+                            .padding(.top, 5)
+                            
                         }
+                        
+                    }.frame(height: 75)
+                        .listRowBackground(item.pin ? Color("AccentColor") : Color.white)
                         .swipeActions(edge: .leading) {
                             Button {
                                 pinLesson(item: item)
                             } label: {
-                                Label("Add", systemImage: "pin.fill")
+                                Label(item.pin ? "Remove" : "Add", systemImage: "pin.fill")
+                                
                             }
-                            .tint(.blue)
+                            .tint(item.pin ? Color.gray : Color("AccentColor"))
                         }
-                        
-                    }
-                    .onDelete(perform: delete)
-                    .foregroundColor(Color.gray)
-                    .padding()
-                    .cornerRadius(10)
+                        .swipeActions(edge: .trailing) {
+                            Button {
+                                delete(item: item)
+                            } label: {
+                                Label("Delete", systemImage: "trash.fill")
+                                
+                            }
+                            .tint(Color.red)
+                        }
+                    
                 }
-                .navigationTitle("My Lessons")
-                .toolbar{
-                    ToolbarItem(placement: .navigationBarTrailing){
-                        Button(action: {
-                            showmodal = true
-                        }, label: {
-                            Image(systemName: "plus")
-                        })
-                    }
-                    ToolbarItem(placement: .navigationBarLeading){
-                        EditButton().font(Font.system(size: 20))
-                    }
-                }
-                .navigationBarTitleDisplayMode(.inline)
+                .foregroundColor(Color.gray)
+                .padding(.vertical, 10)
+                .cornerRadius(10)
+                
             }
+            .navigationTitle("My Lessons")
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing){
+                    Button(action: {
+                        showmodal = true
+                    }, label: {
+                        Image(systemName: "plus")
+                    })
+                }
+                ToolbarItem(placement: .navigationBarLeading){
+                    EditButton().font(Font.system(size: 20))
+                    //                        .disabled(items.lessontxt == nil)
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
         }
+        
         .sheet(isPresented: $showmodal) {
             AddLesson(showmodal: $showmodal)
         }
     }
     func pinLesson(item: Item){
         withAnimation {
-            item.pin = true
+            if (item.pin == true){
+                item.pin = false
+            } else{item.pin = true }
             do {
                 try viewContext.save()
             } catch {
@@ -107,10 +148,9 @@ struct ContentView: View {
             }
         }
     }
-    func delete(at offsets: IndexSet) {
+    func delete(item: Item) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-            
+            viewContext.delete(item)
             do {
                 try viewContext.save()
             } catch {

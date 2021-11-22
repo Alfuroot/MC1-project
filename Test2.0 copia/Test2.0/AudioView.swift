@@ -34,59 +34,59 @@ struct RecordingRow: View {
     @ObservedObject var audioPlayer = AudioPlayer()
     
     var body: some View {
-            HStack {
-                if audioPlayer.isPlaying == false {
-                    Button(action: {
-                        self.audioPlayer.startPlayback(audio: self.audioURL)
-                    }) {
-                        Image(systemName: "play.circle.fill").font(Font.system(size: 55))
-                    }
-                } else {
-                    Button(action: {
-                        self.audioPlayer.stopPlayback()
-                    }) {
-                        Image(systemName: "stop.circle.fill").font(Font.system(size: 55))
-                    }
+        HStack {
+            if audioPlayer.isPlaying == false {
+                Button(action: {
+                    self.audioPlayer.startPlayback(audio: self.audioURL)
+                }) {
+                    Image(systemName: "play.circle.fill").font(Font.system(size: 55))
                 }
-                VStack(alignment: .leading){
-                    let audioAsset = AVURLAsset.init(url: audioURL, options: nil)
-                    let duration = audioAsset.duration
-                    let durationInSeconds = CMTimeGetSeconds(duration)
-                    let formatter = DateComponentsFormatter()
-                    Text("\(audioURL.lastPathComponent)")
-                        .font(.body)
-                        .foregroundColor(.black)
-                        .fontWeight(.bold)
-                        .padding(EdgeInsets(top: 0, leading: 0, bottom: -8, trailing: 0))
-                    
-                    Text("\(formatter.string(from: durationInSeconds)!)")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
+            } else {
+                Button(action: {
+                    self.audioPlayer.stopPlayback()
+                }) {
+                    Image(systemName: "stop.circle.fill").font(Font.system(size: 55))
                 }
-                VStack{
-                    //                    if isPinned{ Image(systemName: "pin.fill").font(Font.system(size: 17)
-                    //                    )
-                    //                        .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))}
-                    Spacer()
-                    Text("...")
-                }.padding(EdgeInsets(top: 5, leading: 27, bottom: 5, trailing: 5))
-            }.frame(width: 300, height: 90)
+            }
+            VStack(alignment: .leading){
+                let audioAsset = AVURLAsset.init(url: audioURL, options: nil)
+                let duration = audioAsset.duration
+                let durationInSeconds = CMTimeGetSeconds(duration)
+                let formatter = DateComponentsFormatter()
+                Text("\(audioURL.lastPathComponent)")
+                    .font(.body)
+                    .foregroundColor(.black)
+                    .fontWeight(.bold)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: -8, trailing: 0))
+                
+                Text("\(formatter.string(from: durationInSeconds)!)")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+            VStack{
+                //                    if isPinned{ Image(systemName: "pin.fill").font(Font.system(size: 17)
+                //                    )
+                //                        .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))}
+                Spacer()
+                Text("...")
+            }.padding(EdgeInsets(top: 5, leading: 27, bottom: 5, trailing: 5))
+        }.frame(width: 300, height: 90)
             .background(Color.white)
             .contextMenu {
-                    Button(action: {
-                        // insert pin action
-                    }) {
-                        Text("Pin")
-                        Image(systemName: "pin.fill")
-                    }
-                    Button(action: {
-                        audioRecorder.deleteRecording(url: audioURL)
-                    }) {
-                        Text("Delete")
-                        Image(systemName: "trash.fill")
-                    }
+                Button(action: {
+                    // insert pin action
+                }) {
+                    Text("Pin")
+                    Image(systemName: "pin.fill")
+                }
+                Button(action: {
+                    audioRecorder.deleteRecording(url: audioURL)
+                }) {
+                    Text("Delete")
+                    Image(systemName: "trash.fill")
+                }
             }
-        }
+    }
     
 }
 

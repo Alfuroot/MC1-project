@@ -44,10 +44,12 @@ struct AudioReform: View {
                     }
                 }
             }.navigationBarTitle("Voice recorder")
-                AZAlert(isShown: $isShown, text: $text, onDone: {text in
+                if isShown{Color.black
+                    .opacity(0.1).ignoresSafeArea()}
+                AZAlert(audioRecorder: AudioRecorder(), title: "Audio reformulation", subtitle: "Insert the title to save your registration", isShown: $isShown, text: $text,item: $item, onDone: {text in
                     setAudio()
-                    self.audioRecorder.saveRecording(title: item.title!, text: text)
                     showmodal = false
+                    
                 })
             }
         }
@@ -55,6 +57,7 @@ struct AudioReform: View {
     func setAudio(){
         withAnimation {
             item.audioicon = true
+            item.audiocount = item.audiocount + 1
             do {
                 try viewContext.save()
             } catch {
@@ -64,6 +67,12 @@ struct AudioReform: View {
         }
     }
 }
+//                AZAlert(title: "Audio reformulation", subtitle: "Insert the title to save your registration", isShown: $isShown, text: $text, onDone: {text in
+//                    setAudio()
+//                    self.audioRecorder.saveRecording(title: item.title!, text: text)
+//                    showmodal = false
+//                })
+
 
 //struct audioReform_Previews: PreviewProvider {
 //    static var previews: some View {
