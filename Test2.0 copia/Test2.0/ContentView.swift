@@ -52,7 +52,7 @@ struct ContentView: View {
                             
                             HStack{
                                 
-                                if (item.audioicon == true){
+                                if (item.audiocount > 0){
                                     Image(systemName: "mic")
                                         .foregroundColor(item.pin ? Color.white : Color.gray)
                                 }

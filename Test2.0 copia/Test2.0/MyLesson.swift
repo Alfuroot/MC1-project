@@ -27,6 +27,7 @@ struct MyLesson: View {
     @State var showRecord: Bool = false
     @State private var binary: Data?
     @State private var image = UIImage()
+    @State var currtxt: String = ""
     @State var showPicker = false
     @State  var imgarray: [UIImage] = []
     @State var txtarray: [String] = []
@@ -53,13 +54,14 @@ struct MyLesson: View {
             .cornerRadius(10)
             .padding()
             
-            if (imgarray.isEmpty && txtarray.isEmpty) {
+            if (imgarray.isEmpty && txtarray.isEmpty && item.audiocount == 0) {
                 Text("Now your lesson is ready, start reformulate it. Good study!")
                     .font(.body)
                     .foregroundColor(Color.gray)
                 .multilineTextAlignment(.center)}
             else{
                 
+                if (item.audiocount > 0) {
                 HStack{
                     Text("Voice Reformulation")
                         .font(.title2)
@@ -80,7 +82,7 @@ struct MyLesson: View {
                         Spacer(minLength: 16)
                         
                         ForEach((audioRecorder.recordings), id: \.createdAt) { recording in
-                            if (recording.fileURL.lastPathComponent.contains("\(item.title!)")) {
+                            if (recording.fileURL.lastPathComponent.contains("\(item.title!)-")) {
                                 HStack{
                                     if audioPlayer.isPlaying == false {
                                         Button(action: {
@@ -129,7 +131,7 @@ struct MyLesson: View {
                                     .contextMenu {
                                         Button(action: {
                                             audioRecorder.deleteRecording(url: recording.fileURL)
-                                            //                                            setAudio()
+                                            setAudio()
                                         }) {
                                             Text("Delete")
                                             Image(systemName: "trash.fill")
@@ -141,7 +143,7 @@ struct MyLesson: View {
                         Spacer(minLength: 15)
                     }
                 }.frame(maxHeight: .infinity)
-                
+                }
                 if (imgarray.count > 0) {
                     HStack{
                         Text("Associated Images")
@@ -233,7 +235,7 @@ struct MyLesson: View {
                                 }.padding(EdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 15))
                                     .background(Color.white)
                                     .onTapGesture{
-                                        //                                        self.showmodal = true
+                                        currtxt = txt
                                         self.showReformulation = true
                                     }
                                     .contextMenu {
@@ -291,7 +293,7 @@ struct MyLesson: View {
             LessonText(item: $item, showlesson: $showlesson).onDisappear(perform: {showlesson = false})
         }
         .sheet(isPresented: $showReformulation){
-            Reformulation(item: $item, showReformulation: $showReformulation).onDisappear(perform: {showReformulation = false})
+            Reformulation(item: $item, showReformulation: $showReformulation, currtxt: $currtxt).onDisappear(perform: {showReformulation = false})
         }
         .confirmationDialog("",isPresented: $showingActionSheet) {
             Button("Audio reformulation"){

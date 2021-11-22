@@ -9,6 +9,10 @@ struct AudioReform: View {
     @ObservedObject var audioRecorder: AudioRecorder
     @Binding var item: Item
     @Binding var showmodal: Bool
+    @State var hours: Int = 0
+    @State var minutes: Int = 0
+    @State var seconds: Int = 0
+    @State var timer: Timer? = nil
     @State var name: String = ""
     @State var isShown: Bool = false
     @State var text: String = ""
@@ -19,8 +23,27 @@ struct AudioReform: View {
                 
             VStack {
                 
+                Text("\(makeTimeString(hours: hours, minutes: minutes, seconds: seconds))")
+                    .font(.system(size: 56.0))
+                    .padding()
                 if audioRecorder.recording == false {
-                    Button(action: {self.audioRecorder.startRecording(title: item.title!)}) {
+                    
+                    Button(action: {
+                        self.audioRecorder.startRecording(title: item.title!)
+                        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
+                              if self.seconds == 59 {
+                                self.seconds = 0
+                                if self.minutes == 59 {
+                                  self.minutes = 0
+                                  self.hours = self.hours + 1
+                                } else {
+                                  self.minutes = self.minutes + 1
+                                }
+                              } else {
+                                self.seconds = self.seconds + 1
+                              }
+                            }
+                    }) {
                         Image(systemName: "circle.fill")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -31,6 +54,11 @@ struct AudioReform: View {
                     }
                 } else {
                     Button(action: {
+                        timer?.invalidate()
+                        timer = nil
+                        self.seconds = 0
+                        self.minutes = 0
+                        self.hours = 0
                         isShown = true
                         self.audioRecorder.stopRecording()
                     }) {
@@ -66,6 +94,17 @@ struct AudioReform: View {
             }
         }
     }
+    
+    func makeTimeString(hours: Int, minutes: Int, seconds : Int) -> String
+        {
+            var timeString = ""
+            timeString += String(format: "%02d", hours)
+            timeString += " : "
+            timeString += String(format: "%02d", minutes)
+            timeString += " : "
+            timeString += String(format: "%02d", seconds)
+            return timeString
+        }
 }
 //                AZAlert(title: "Audio reformulation", subtitle: "Insert the title to save your registration", isShown: $isShown, text: $text, onDone: {text in
 //                    setAudio()

@@ -14,12 +14,12 @@ struct Reformulation: View {
     @Binding var item: Item
     //    @Binding var showmodal: Bool
     @Binding var showReformulation: Bool
-    
+    @Binding var currtxt: String
     @State private var showTitleWindow = false
     @State private var lessonContent: String = ""
-    
     var isError = true
-    @State var isEditable = false
+    @State var isEditable = true
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -36,7 +36,7 @@ struct Reformulation: View {
                             Text("You did not use the keywords correctly")}}
                                 .font(.caption).listRowInsets(EdgeInsets(top: 10, leading: 25, bottom: 0, trailing: 0))){
                         
-                        if isEditable {TextEditor(text: $lessonContent).frame( height: 695)}
+                        if isEditable {TextEditor(text: $currtxt).frame( height: 695)}
                         //                        else {Text ("\(item.reformtxt!)").frame( height: 695)}
                     }
                 }

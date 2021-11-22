@@ -35,21 +35,24 @@ struct TextReform: View {
                 if showTitleWindow{Color.black
                     .opacity(0.1).ignoresSafeArea()}
                 
-//                AZAlert(title: "Writing reformulation", subtitle: "Insert the title to save your text", isShown: $showTitleWindow, text: $lessonTitle, onDone: { text in
-//                    txtarray.append(lessonContent)
-//                    addTxtref()
-//                    showTitleWindow.toggle()
-//                    Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-//                        presentationMode.wrappedValue.dismiss()
-//                    }
-//                })
+                //                AZAlert(title: "Writing reformulation", subtitle: "Insert the title to save your text", isShown: $showTitleWindow, text: $lessonTitle, onDone: { text in
+                //                    txtarray.append(lessonContent)
+                //                    addTxtref()
+                //                    showTitleWindow.toggle()
+                //                    Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                //                        presentationMode.wrappedValue.dismiss()
+                //                    }
+                //                })
                 
             }
             .navigationTitle("Writing Reformulation")
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
+                        txtarray.append(lessonContent)
+                        addTxtref()
                         showTitleWindow.toggle()
+                        showmodal = false
                     }, label: {
                         Text("Done")
                     }).disabled(lessonContent.isEmpty || showTitleWindow)
