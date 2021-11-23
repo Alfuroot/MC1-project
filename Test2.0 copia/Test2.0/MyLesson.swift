@@ -13,9 +13,13 @@ import CoreData
 import Speech
 
 struct MyLesson: View {
+    
     @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var audioRecorder: AudioRecorder
     @ObservedObject var audioPlayer = AudioPlayer()
+    
+    @State var recordurl: URL?
+    @State var timer: Timer? = nil
     @State var isPlaying = false
     @State var item: Item
     @State var showingActionSheet: Bool = false
@@ -27,10 +31,11 @@ struct MyLesson: View {
     @State var showRecord: Bool = false
     @State private var binary: Data?
     @State private var image = UIImage()
+    @State private var time: Float64 = 0
     @State var currtxt: String = ""
     @State var index: Int = 0
     @State var showPicker = false
-    @State  var imgarray: [UIImage] = []
+    @State var imgarray: [UIImage] = []
     @State var txtarray: [String] = []
     @State var txttitlearray: [String] = []
     @State private var transcription: String = ""
@@ -86,9 +91,23 @@ struct MyLesson: View {
                         ForEach((audioRecorder.recordings), id: \.createdAt) { recording in
                             if (recording.fileURL.lastPathComponent.contains("\(item.title!)-")) {
                                 HStack{
+                                    let audioAsset = AVURLAsset.init(url: recording.fileURL, options: nil)
+                                    let duration = audioAsset.duration
+                                    let durationInSeconds = CMTimeGetSeconds(duration)
+                                    let formatter = DateComponentsFormatter()
                                     if audioPlayer.isPlaying == false {
                                         Button(action: {
                                             self.audioPlayer.startPlayback(audio: recording.fileURL)
+                                            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
+                                                time = time + 1
+                                                print(time)
+                                                if (time >= durationInSeconds){
+                                                    self.audioPlayer.stopPlayback()
+                                                    timer?.invalidate()
+                                                    timer = nil
+                                                    time = 0
+                                                }
+                                            }
                                         }) {
                                             Image(systemName: "play.circle.fill").font(Font.system(size: 55))
                                                 .padding(.leading, 10)
@@ -96,16 +115,16 @@ struct MyLesson: View {
                                     } else {
                                         Button(action: {
                                             self.audioPlayer.stopPlayback()
+                                            timer?.invalidate()
+                                            timer = nil
+                                            time = 0
                                         }) {
                                             Image(systemName: "stop.circle.fill").font(Font.system(size: 55))
                                                 .padding(.leading, 10)
                                         }
                                     }
                                     VStack(alignment: .leading){
-                                        let audioAsset = AVURLAsset.init(url: recording.fileURL, options: nil)
-                                        let duration = audioAsset.duration
-                                        let durationInSeconds = CMTimeGetSeconds(duration)
-                                        let formatter = DateComponentsFormatter()
+                                        
                                         Text("\(recording.fileURL.lastPathComponent)")
                                             .font(.body)
                                             .foregroundColor(.black)
@@ -122,12 +141,13 @@ struct MyLesson: View {
                                         Spacer()
                                         Text("...")
                                         //                                                .onTapGesture(perform: {transcribe(audioURL: recording.fileURL)})
+                                        
                                     }.padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
                                 }.frame(height: 90)
                                     .background(Color.white)
                                     .cornerRadius(10)
                                     .onTapGesture{
-                                        //                                        self.showmodal = true
+                                        recordurl = recording.fileURL
                                         self.showRecord = true
                                     }
                                     .contextMenu {
@@ -292,7 +312,7 @@ struct MyLesson: View {
             
         }
         .sheet(isPresented: $showRecord){
-            Record(item: $item, showRecord: $showRecord).onDisappear(perform: {showRecord = false})
+            Record(audioRecorder: AudioRecorder(), item: $item, showRecord: $showRecord, recordurl: $recordurl).onDisappear(perform: {showRecord = false})
         }
         .sheet(isPresented: $showlesson){
             LessonText(item: $item, showlesson: $showlesson).onDisappear(perform: {showlesson = false})
@@ -331,27 +351,6 @@ struct MyLesson: View {
             }
         })
         
-    }
-    
-    func transcribe(audioURL: URL){
-        
-        let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
-        let request = SFSpeechURLRecognitionRequest(url: audioURL)
-        
-        
-        request.shouldReportPartialResults = true
-        
-        if (recognizer?.isAvailable)! {
-            
-            recognizer?.recognitionTask(with: request) { result, error in
-                guard error == nil else { print("Error: \(error!)"); return }
-                guard let result = result else { print("No result!"); return }
-                
-                transcription = result.bestTranscription.formattedString
-            }
-        } else {
-            print("Device doesn't support speech recognition")
-        }
     }
     
     func setTxt(txtbool: Bool){
