@@ -10,15 +10,17 @@ import SwiftUI
 struct Reformulation: View {
     
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) private var viewContext
     
     @Binding var item: Item
     //    @Binding var showmodal: Bool
     @Binding var showReformulation: Bool
     @Binding var currtxt: String
+    @Binding var index: Int
     @State private var showTitleWindow = false
     @State private var lessonContent: String = ""
     var isError = true
-    @State var isEditable = true
+    @State var isEditable = false
     
     var body: some View {
         NavigationView {
@@ -37,7 +39,7 @@ struct Reformulation: View {
                                 .font(.caption).listRowInsets(EdgeInsets(top: 10, leading: 25, bottom: 0, trailing: 0))){
                         
                         if isEditable {TextEditor(text: $currtxt).frame( height: 695)}
-                        //                        else {Text ("\(item.reformtxt!)").frame( height: 695)}
+                        else {Text ("\(currtxt)").frame( height: 695).frame(maxWidth: .infinity, alignment: .top)}
                     }
                 }
                 
@@ -48,11 +50,10 @@ struct Reformulation: View {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
                         if isEditable{
-                            isEditable.toggle()
-                            //                            lessonContent = self.item.reformtxt!
+                            setTxtref(currtxtx: currtxt)
                         }
                         else{
-                            //                            INSERT A SAVE FUNC
+                            isEditable.toggle()
                         }
                     }, label: {
                         if isEditable{
@@ -71,11 +72,22 @@ struct Reformulation: View {
                 }
                 
             }.navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(item.reformtxttitle![index])
             
             
             
         }.interactiveDismissDisabled(showTitleWindow)
         
     }
-    
+    func setTxtref(currtxtx: String){
+        withAnimation {
+            item.reformtxt![index] = currtxt
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
 }

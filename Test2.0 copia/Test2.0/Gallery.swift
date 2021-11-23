@@ -16,7 +16,7 @@ struct Gallery: View {
     @State private var binary: Data?
     @State private var image = UIImage()
     @Binding var showPicker: Bool
-    @Binding  var imgarray: [UIImage]
+    @Binding var imgarray: [UIImage]
     
     
     var body: some View {

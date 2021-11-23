@@ -28,9 +28,11 @@ struct MyLesson: View {
     @State private var binary: Data?
     @State private var image = UIImage()
     @State var currtxt: String = ""
+    @State var index: Int = 0
     @State var showPicker = false
     @State  var imgarray: [UIImage] = []
     @State var txtarray: [String] = []
+    @State var txttitlearray: [String] = []
     @State private var transcription: String = ""
     var isNotCorrect = false
     var lessonIsEmpty = false
@@ -68,7 +70,7 @@ struct MyLesson: View {
                         .fontWeight(.bold)
                     
                     Spacer()
-                    NavigationLink(destination: ListAudio()) {
+                    NavigationLink(destination: ListAudio(audioRecorder: AudioRecorder(), item: $item)) {
                         
                         Text("Show all")
                             .font(.body)
@@ -218,7 +220,7 @@ struct MyLesson: View {
                             ForEach(txtarray, id: \.self) {txt in
                                 VStack(alignment: .leading){
                                     HStack{
-                                        Text("TITLE!!!")
+                                        Text("\(txttitlearray[txtarray.index(of: txt)!])")
                                             .font(.body)
                                             .foregroundColor(.black)
                                             .fontWeight(.bold)
@@ -236,12 +238,15 @@ struct MyLesson: View {
                                     .background(Color.white)
                                     .onTapGesture{
                                         currtxt = txt
+                                        index = txtarray.index(of: txt)!
                                         self.showReformulation = true
                                     }
                                     .contextMenu {
                                         Button(action: {
+                                            
+                                            txttitlearray.remove(at: txtarray.index(of: txt)!)
                                             txtarray.removeAll {$0 == txt}
-                                            addTxtref(txtref: txtarray)
+                                            addTxtref(txtref: txtarray, txttitle: txttitlearray)
                                             setTxt(txtbool: txtarray.isEmpty)
                                         }) {
                                             Text("Delete")
@@ -282,7 +287,7 @@ struct MyLesson: View {
                 AudioReform(audioRecorder: AudioRecorder(),item: $item, showmodal: $showmodal).onDisappear(perform: {showaudio.toggle()})
             }
             else if (showwriting == true){
-                TextReform(item: $item, showmodal: $showmodal, txtarray: $txtarray).onDisappear(perform: {showwriting.toggle()})
+                TextReform(item: $item, showmodal: $showmodal, txtarray: $txtarray, txttitlearray: $txttitlearray).onDisappear(perform: {showwriting.toggle()})
             }
             
         }
@@ -293,7 +298,12 @@ struct MyLesson: View {
             LessonText(item: $item, showlesson: $showlesson).onDisappear(perform: {showlesson = false})
         }
         .sheet(isPresented: $showReformulation){
-            Reformulation(item: $item, showReformulation: $showReformulation, currtxt: $currtxt).onDisappear(perform: {showReformulation = false})
+            Reformulation(item: $item, showReformulation: $showReformulation, currtxt: $currtxt, index: $index).onDisappear(perform: {
+                if (item.reformtxt != nil){
+                    txttitlearray = item.reformtxttitle!
+                    txtarray = item.reformtxt!
+                    setTxt(txtbool: txtarray.isEmpty)
+                };showReformulation = false})
         }
         .confirmationDialog("",isPresented: $showingActionSheet) {
             Button("Audio reformulation"){
@@ -311,6 +321,7 @@ struct MyLesson: View {
         
         .onAppear(perform: {
             if (item.reformtxt != nil){
+                txttitlearray = item.reformtxttitle!
                 txtarray = item.reformtxt!
                 setTxt(txtbool: txtarray.isEmpty)
             }
@@ -355,8 +366,9 @@ struct MyLesson: View {
         }
     }
     
-    func addTxtref(txtref: [String]){
+    func addTxtref(txtref: [String],txttitle: [String]){
         withAnimation {
+            item.reformtxttitle = txttitle
             item.reformtxt = txtref
             do {
                 try viewContext.save()

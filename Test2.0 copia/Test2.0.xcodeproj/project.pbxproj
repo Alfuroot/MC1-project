@@ -32,6 +32,7 @@
 		94B7CEEE274C354A004952E3 /* Test2_0.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEE4274C354A004952E3 /* Test2_0.xcdatamodeld */; };
 		94B7CEEF274C354A004952E3 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEE6274C354A004952E3 /* Record.swift */; };
 		94B7CEF0274C354A004952E3 /* ListAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEE7274C354A004952E3 /* ListAudio.swift */; };
+		94B7CEF2274CE07E004952E3 /* txtCustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEF1274CE07E004952E3 /* txtCustomAlert.swift */; };
 		94FA46AF274553750079DFBE /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46AE274553750079DFBE /* AudioView.swift */; };
 		94FA46B1274554590079DFBE /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46B0274554590079DFBE /* AudioRecorder.swift */; };
 		94FA46B3274554E60079DFBE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46B2274554E60079DFBE /* Extensions.swift */; };
@@ -85,6 +86,7 @@
 		94B7CEE5274C354A004952E3 /* Test2_0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Test2_0.xcdatamodel; sourceTree = "<group>"; };
 		94B7CEE6274C354A004952E3 /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		94B7CEE7274C354A004952E3 /* ListAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListAudio.swift; sourceTree = "<group>"; };
+		94B7CEF1274CE07E004952E3 /* txtCustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = txtCustomAlert.swift; sourceTree = "<group>"; };
 		94FA46AE274553750079DFBE /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		94FA46B0274554590079DFBE /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		94FA46B2274554E60079DFBE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				940BC0742743AF860022D8B6 /* AddLesson.swift */,
 				940BC0492743AEB80022D8B6 /* Assets.xcassets */,
 				945386332747CDB40083382B /* customAlert.swift */,
+				94B7CEF1274CE07E004952E3 /* txtCustomAlert.swift */,
 				940BC04E2743AEB80022D8B6 /* Persistence.swift */,
 				940BC0822745282C0022D8B6 /* AudioReform.swift */,
 				94FA46AE274553750079DFBE /* AudioView.swift */,
@@ -332,6 +335,7 @@
 				945386342747CDB40083382B /* customAlert.swift in Sources */,
 				94B6A0892749A83800A13090 /* PhotoPicker.swift in Sources */,
 				94B6A0802749A73F00A13090 /* MyLesson.swift in Sources */,
+				94B7CEF2274CE07E004952E3 /* txtCustomAlert.swift in Sources */,
 				94B7CEEE274C354A004952E3 /* Test2_0.xcdatamodeld in Sources */,
 				940BC0832745282D0022D8B6 /* AudioReform.swift in Sources */,
 				940BC07B2744F9560022D8B6 /* LessonCard.swift in Sources */,
@@ -511,6 +515,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Test2.0/Preview Content\"";
+				DEVELOPMENT_TEAM = A7VJFCG77Y;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Audio is used to transcribe your reformulation and improve your learning";
@@ -541,6 +546,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Test2.0/Preview Content\"";
+				DEVELOPMENT_TEAM = A7VJFCG77Y;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Audio is used to transcribe your reformulation and improve your learning";

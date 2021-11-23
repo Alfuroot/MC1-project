@@ -21,7 +21,7 @@ struct ListReformulation: View {
             List{
                 ForEach(txtarray, id: \.self) { txt in
                     VStack{
-                        Text("\(txt)")
+                        Text("\(item.reformtxttitle![txtarray.index(of: txt)!])")
                             .font(.body)
                             .foregroundColor(.black)
                             .fontWeight(.bold)
