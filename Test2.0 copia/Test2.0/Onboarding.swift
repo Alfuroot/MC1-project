@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct Onboarding: View {
-    @State var actualview: String = "Planner"
     @State var isShowed: Bool = false
+    @State var aaa: Bool = false
     
     var body: some View {
         VStack {
             VStack{
                 VStack{
                     Text("Welcome in\n").font(.largeTitle)
-                        .fontWeight(.bold) + Text("Blablabla")
+                        .fontWeight(.bold) + Text("RephraZe")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(Color("AccentColor"))
@@ -54,7 +54,7 @@ struct Onboarding: View {
                                 .fontWeight(.semibold)
                                 .multilineTextAlignment(.leading)
                             
-                            Text("Paste your lesson, get the keywords \nand start your study session.")
+                            Text("Paste your lesson \nand start your study session.")
                                 .fontWeight(.regular)
                                 .foregroundColor(Color.gray)
                             .multilineTextAlignment(.leading)}
@@ -105,7 +105,10 @@ struct Onboarding: View {
                 
                 
             }
-            Button(action: {isShowed.toggle()}) {
+            Button(action: {isShowed.toggle()
+                UserDefaults.standard.set(true, forKey: "LaunchBefore")
+                aaa.toggle()
+            }) {
                 Text("Continue")
                     .fontWeight(.semibold)
                     .padding(.horizontal, 90.0)
@@ -113,20 +116,12 @@ struct Onboarding: View {
                     .foregroundColor(.white)
                     .background(Color.accentColor)
                     .cornerRadius(10)
-                //                        .sheet(isPresented: $isShowed) {
-                //                            if(actualview=="Planner"){
-                ////                                CreatePlannerWorkingView(isShowed: $isShowed, actualview: $actualview)
-                //                                                        }else{
-                //                                                            NotificationView(isShowed: $isShowed, actualview: $actualview )
-                //                                                        }
-                //
-                //
-                //                                                    }
             }
             .padding(.top, 40.0)
-        }
+        }.fullScreenCover(isPresented: $aaa){ContentView()}
     }
 }
+
 
 
 struct Onboarding_Previews: PreviewProvider {

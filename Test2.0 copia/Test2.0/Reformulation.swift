@@ -10,49 +10,35 @@ import SwiftUI
 struct Reformulation: View {
     
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.managedObjectContext) private var viewContext
     
     @Binding var item: Item
-    //    @Binding var showmodal: Bool
     @Binding var showReformulation: Bool
-    
+    @Binding var currtxt: String
+    @Binding var index: Int
     @State private var showTitleWindow = false
     @State private var lessonContent: String = ""
-    
     var isError = true
     @State var isEditable = false
+    
     var body: some View {
         NavigationView {
-            VStack {
-                Form{
-                    
-                    Section(header:
-                                
-                                
-                                HStack(alignment: .center){
-                        if isError{
-                            Image(systemName: "exclamationmark.triangle").font(Font.system(size: 17, weight: .bold)
-                            ).foregroundColor(Color.yellow)
-                            
-                            Text("You did not use the keywords correctly")}}
-                                .font(.caption).listRowInsets(EdgeInsets(top: 10, leading: 25, bottom: 0, trailing: 0))){
-                        
-                        if isEditable {TextEditor(text: $lessonContent).frame( height: 695)}
-                        //                        else {Text ("\(item.reformtxt!)").frame( height: 695)}
-                    }
-                }
+            Form{
                 
+                if isEditable {TextEditor(text: $currtxt).frame( height: 695)}
+                else{TextEditor(text: .constant(currtxt)).frame( height: 695).disabled(true)}
             }
-            //                .navigationTitle("\(???)")
-            
+
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
                         if isEditable{
+                            setTxtref(currtxtx: currtxt)
                             isEditable.toggle()
-                            //                            lessonContent = self.item.reformtxt!
+                            
                         }
                         else{
-                            //                            INSERT A SAVE FUNC
+                            isEditable.toggle()
                         }
                     }, label: {
                         if isEditable{
@@ -63,7 +49,6 @@ struct Reformulation: View {
                 }
                 ToolbarItem(placement: .navigationBarLeading){
                     Button(action: {
-                        //                        showReformulation = false
                         presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("Cancel")
@@ -71,11 +56,20 @@ struct Reformulation: View {
                 }
                 
             }.navigationBarTitleDisplayMode(.inline)
-            
-            
+                .navigationTitle(item.reformtxttitle![index])
             
         }.interactiveDismissDisabled(showTitleWindow)
         
     }
-    
+    func setTxtref(currtxtx: String){
+        withAnimation {
+            item.reformtxt![index] = currtxt
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
 }

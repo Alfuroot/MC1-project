@@ -14,90 +14,60 @@ struct ListReformulation: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Binding var item: Item
     @Binding var txtarray: [String]
-    
+    @State var showReformulation2: Bool = false
+    @State var currtxt: String = ""
+    @State var index: Int = 0
+
     
     var body: some View {
         VStack{
             List{
                 ForEach(txtarray, id: \.self) { txt in
+                    
                     VStack{
-                        Text("\(txt)")
+                        Text("\(item.reformtxttitle![txtarray.index(of: txt)!])")
                             .font(.body)
                             .foregroundColor(.black)
                             .fontWeight(.bold)
-                            .frame( height: 10)
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         Text("\(txt)")
                             .font(.body)
                             .foregroundColor(.gray)
-                            .frame(maxHeight: 10)
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
                     }.padding(.vertical, 15)
-                        .swipeActions(edge: .trailing) {
-                            Button {
-                                txtarray.removeAll {$0 == txt}
-                                addTxtref(txtref: txtarray)
-                                setTxt(txtbool: txtarray.isEmpty)
-                            } label: {
-                                Label("Delete", systemImage: "trash.fill")
-                                
-                            }
-                            .tint(Color.red)
+                        .onTapGesture{
+                            currtxt = txt
+                            index = txtarray.index(of: txt)!
+                            self.showReformulation2 = true
                         }
                 }
                 
             }
             
         }.background(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
-        
+            .sheet(isPresented: $showReformulation2){
+                Reformulation(item: $item, showReformulation: $showReformulation2, currtxt: $currtxt, index: $index)
+
+            }
             .navigationTitle("Writing Reformulation")
         
             .toolbar{
-                
-                ToolbarItem(placement: .navigationBarTrailing){
-                    EditButton().font(Font.system(size: 20))
-                    
-                }
-                ToolbarItemGroup(placement: .bottomBar){
-                    Spacer()
+            
+                ToolbarItem(placement: .bottomBar){
+                 
                     Text("\(txtarray.count) reformulation")
-                    Spacer()
+
                     
-                    Button(action: {
-                        //               INSERT ACTION
-                    }, label: {
-                        Image(systemName: "square.and.pencil")
-                    }
-                    )
                 }
             }
         
         
     }
-    func setTxt(txtbool: Bool){
-        withAnimation {
-//            item.txticon = !txtbool
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-    
-    func addTxtref(txtref: [String]){
-        withAnimation {
-            item.reformtxt = txtref
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-}
 
+}
 
 //struct ListReformulation_Previews: PreviewProvider {
 //    static var previews: some View {

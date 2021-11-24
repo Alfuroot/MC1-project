@@ -12,7 +12,6 @@
 		940BC04A2743AEB80022D8B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 940BC0492743AEB80022D8B6 /* Assets.xcassets */; };
 		940BC04D2743AEB80022D8B6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 940BC04C2743AEB80022D8B6 /* Preview Assets.xcassets */; };
 		940BC04F2743AEB80022D8B6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940BC04E2743AEB80022D8B6 /* Persistence.swift */; };
-		940BC0522743AEB80022D8B6 /* Test2_0.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 940BC0502743AEB80022D8B6 /* Test2_0.xcdatamodeld */; };
 		940BC05C2743AEB80022D8B6 /* Test2_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940BC05B2743AEB80022D8B6 /* Test2_0Tests.swift */; };
 		940BC0662743AEB80022D8B6 /* Test2_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940BC0652743AEB80022D8B6 /* Test2_0UITests.swift */; };
 		940BC0682743AEB80022D8B6 /* Test2_0UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940BC0672743AEB80022D8B6 /* Test2_0UITestsLaunchTests.swift */; };
@@ -24,11 +23,22 @@
 		945386362747CEF70083382B /* TextReform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945386352747CEF70083382B /* TextReform.swift */; };
 		94B6A0802749A73F00A13090 /* MyLesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6A07F2749A73F00A13090 /* MyLesson.swift */; };
 		94B6A0892749A83800A13090 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6A0872749A83800A13090 /* PhotoPicker.swift */; };
+		94B7CEE8274C354A004952E3 /* Gallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEDE274C354A004952E3 /* Gallery.swift */; };
+		94B7CEE9274C354A004952E3 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEDF274C354A004952E3 /* Images.swift */; };
+		94B7CEEA274C354A004952E3 /* LessonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEE0274C354A004952E3 /* LessonText.swift */; };
+		94B7CEEB274C354A004952E3 /* Reformulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEE1274C354A004952E3 /* Reformulation.swift */; };
+		94B7CEEC274C354A004952E3 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEE2274C354A004952E3 /* Onboarding.swift */; };
+		94B7CEED274C354A004952E3 /* ListReformulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEE3274C354A004952E3 /* ListReformulation.swift */; };
+		94B7CEEE274C354A004952E3 /* Test2_0.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEE4274C354A004952E3 /* Test2_0.xcdatamodeld */; };
+		94B7CEEF274C354A004952E3 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEE6274C354A004952E3 /* Record.swift */; };
+		94B7CEF0274C354A004952E3 /* ListAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEE7274C354A004952E3 /* ListAudio.swift */; };
+		94B7CEF2274CE07E004952E3 /* txtCustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B7CEF1274CE07E004952E3 /* txtCustomAlert.swift */; };
 		94FA46AF274553750079DFBE /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46AE274553750079DFBE /* AudioView.swift */; };
 		94FA46B1274554590079DFBE /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46B0274554590079DFBE /* AudioRecorder.swift */; };
 		94FA46B3274554E60079DFBE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46B2274554E60079DFBE /* Extensions.swift */; };
 		94FA46B5274558840079DFBE /* RecordingDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46B4274558830079DFBE /* RecordingDataModel.swift */; };
 		94FA46B727455B230079DFBE /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FA46B627455B230079DFBE /* AudioPlayer.swift */; };
+		AB604724274D863A00716D4C /* AudioVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB604723274D863A00716D4C /* AudioVisualizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +65,6 @@
 		940BC0492743AEB80022D8B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		940BC04C2743AEB80022D8B6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		940BC04E2743AEB80022D8B6 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		940BC0512743AEB80022D8B6 /* Test2_0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Test2_0.xcdatamodel; sourceTree = "<group>"; };
 		940BC0572743AEB80022D8B6 /* Test2.0Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test2.0Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		940BC05B2743AEB80022D8B6 /* Test2_0Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2_0Tests.swift; sourceTree = "<group>"; };
 		940BC0612743AEB80022D8B6 /* Test2.0UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test2.0UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,16 +73,27 @@
 		940BC0742743AF860022D8B6 /* AddLesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLesson.swift; sourceTree = "<group>"; };
 		940BC0782743E1540022D8B6 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
 		940BC07A2744F9550022D8B6 /* LessonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCard.swift; sourceTree = "<group>"; };
-		940BC0822745282C0022D8B6 /* AudioReform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioReform.swift; sourceTree = "<group>"; };
+		940BC0822745282C0022D8B6 /* AudioReform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioReform.swift; sourceTree = "<group>"; tabWidth = 4; };
 		945386332747CDB40083382B /* customAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = customAlert.swift; sourceTree = "<group>"; };
 		945386352747CEF70083382B /* TextReform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextReform.swift; sourceTree = "<group>"; };
 		94B6A07F2749A73F00A13090 /* MyLesson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyLesson.swift; sourceTree = "<group>"; };
 		94B6A0872749A83800A13090 /* PhotoPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		94B7CEDE274C354A004952E3 /* Gallery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gallery.swift; sourceTree = "<group>"; };
+		94B7CEDF274C354A004952E3 /* Images.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		94B7CEE0274C354A004952E3 /* LessonText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonText.swift; sourceTree = "<group>"; };
+		94B7CEE1274C354A004952E3 /* Reformulation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reformulation.swift; sourceTree = "<group>"; };
+		94B7CEE2274C354A004952E3 /* Onboarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		94B7CEE3274C354A004952E3 /* ListReformulation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListReformulation.swift; sourceTree = "<group>"; };
+		94B7CEE5274C354A004952E3 /* Test2_0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Test2_0.xcdatamodel; sourceTree = "<group>"; };
+		94B7CEE6274C354A004952E3 /* Record.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		94B7CEE7274C354A004952E3 /* ListAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListAudio.swift; sourceTree = "<group>"; };
+		94B7CEF1274CE07E004952E3 /* txtCustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = txtCustomAlert.swift; sourceTree = "<group>"; };
 		94FA46AE274553750079DFBE /* AudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
 		94FA46B0274554590079DFBE /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		94FA46B2274554E60079DFBE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		94FA46B4274558830079DFBE /* RecordingDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDataModel.swift; sourceTree = "<group>"; };
 		94FA46B627455B230079DFBE /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		AB604723274D863A00716D4C /* AudioVisualizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVisualizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +144,15 @@
 		940BC0442743AEB80022D8B6 /* Test2.0 */ = {
 			isa = PBXGroup;
 			children = (
+				94B7CEDE274C354A004952E3 /* Gallery.swift */,
+				94B7CEDF274C354A004952E3 /* Images.swift */,
+				94B7CEE0274C354A004952E3 /* LessonText.swift */,
+				94B7CEE7274C354A004952E3 /* ListAudio.swift */,
+				94B7CEE3274C354A004952E3 /* ListReformulation.swift */,
+				94B7CEE2274C354A004952E3 /* Onboarding.swift */,
+				94B7CEE6274C354A004952E3 /* Record.swift */,
+				94B7CEE1274C354A004952E3 /* Reformulation.swift */,
+				94B7CEE4274C354A004952E3 /* Test2_0.xcdatamodeld */,
 				94B6A0872749A83800A13090 /* PhotoPicker.swift */,
 				940BC0782743E1540022D8B6 /* Lesson.swift */,
 				94B6A07F2749A73F00A13090 /* MyLesson.swift */,
@@ -134,15 +163,16 @@
 				940BC0742743AF860022D8B6 /* AddLesson.swift */,
 				940BC0492743AEB80022D8B6 /* Assets.xcassets */,
 				945386332747CDB40083382B /* customAlert.swift */,
+				94B7CEF1274CE07E004952E3 /* txtCustomAlert.swift */,
 				940BC04E2743AEB80022D8B6 /* Persistence.swift */,
 				940BC0822745282C0022D8B6 /* AudioReform.swift */,
 				94FA46AE274553750079DFBE /* AudioView.swift */,
 				94FA46B0274554590079DFBE /* AudioRecorder.swift */,
 				94FA46B627455B230079DFBE /* AudioPlayer.swift */,
 				94FA46B4274558830079DFBE /* RecordingDataModel.swift */,
-				940BC0502743AEB80022D8B6 /* Test2_0.xcdatamodeld */,
 				940BC04B2743AEB80022D8B6 /* Preview Content */,
 				94FA46B2274554E60079DFBE /* Extensions.swift */,
+				AB604723274D863A00716D4C /* AudioVisualizer.swift */,
 			);
 			path = Test2.0;
 			sourceTree = "<group>";
@@ -302,22 +332,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94B7CEEA274C354A004952E3 /* LessonText.swift in Sources */,
 				940BC0752743AF860022D8B6 /* AddLesson.swift in Sources */,
+				94B7CEEF274C354A004952E3 /* Record.swift in Sources */,
 				945386342747CDB40083382B /* customAlert.swift in Sources */,
 				94B6A0892749A83800A13090 /* PhotoPicker.swift in Sources */,
 				94B6A0802749A73F00A13090 /* MyLesson.swift in Sources */,
+				94B7CEF2274CE07E004952E3 /* txtCustomAlert.swift in Sources */,
+				94B7CEEE274C354A004952E3 /* Test2_0.xcdatamodeld in Sources */,
 				940BC0832745282D0022D8B6 /* AudioReform.swift in Sources */,
 				940BC07B2744F9560022D8B6 /* LessonCard.swift in Sources */,
 				94FA46B5274558840079DFBE /* RecordingDataModel.swift in Sources */,
+				94B7CEED274C354A004952E3 /* ListReformulation.swift in Sources */,
 				940BC04F2743AEB80022D8B6 /* Persistence.swift in Sources */,
 				94FA46B1274554590079DFBE /* AudioRecorder.swift in Sources */,
+				94B7CEEB274C354A004952E3 /* Reformulation.swift in Sources */,
 				94FA46AF274553750079DFBE /* AudioView.swift in Sources */,
-				940BC0522743AEB80022D8B6 /* Test2_0.xcdatamodeld in Sources */,
+				94B7CEE8274C354A004952E3 /* Gallery.swift in Sources */,
+				94B7CEE9274C354A004952E3 /* Images.swift in Sources */,
+				94B7CEF0274C354A004952E3 /* ListAudio.swift in Sources */,
 				940BC0792743E1540022D8B6 /* Lesson.swift in Sources */,
+				94B7CEEC274C354A004952E3 /* Onboarding.swift in Sources */,
 				940BC0482743AEB80022D8B6 /* ContentView.swift in Sources */,
 				945386362747CEF70083382B /* TextReform.swift in Sources */,
 				94FA46B3274554E60079DFBE /* Extensions.swift in Sources */,
 				94FA46B727455B230079DFBE /* AudioPlayer.swift in Sources */,
+				AB604724274D863A00716D4C /* AudioVisualizer.swift in Sources */,
 				940BC0462743AEB80022D8B6 /* Test2_0App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -479,6 +519,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Test2.0/Preview Content\"";
+				DEVELOPMENT_TEAM = 3GSVA9WBVH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Audio is used to transcribe your reformulation and improve your learning";
@@ -487,13 +528,13 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Test.Test2-0";
+				PRODUCT_BUNDLE_IDENTIFIER = "Test.Test2-0-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -509,6 +550,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Test2.0/Preview Content\"";
+				DEVELOPMENT_TEAM = 3GSVA9WBVH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Audio is used to transcribe your reformulation and improve your learning";
@@ -517,13 +559,13 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait UIInterfaceOrientationPortrait";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Test.Test2-0";
+				PRODUCT_BUNDLE_IDENTIFIER = "Test.Test2-0-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -538,6 +580,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3GSVA9WBVH;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -562,6 +605,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3GSVA9WBVH;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -585,6 +629,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3GSVA9WBVH;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -607,6 +652,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3GSVA9WBVH;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -665,12 +711,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		940BC0502743AEB80022D8B6 /* Test2_0.xcdatamodeld */ = {
+		94B7CEE4274C354A004952E3 /* Test2_0.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				940BC0512743AEB80022D8B6 /* Test2_0.xcdatamodel */,
+				94B7CEE5274C354A004952E3 /* Test2_0.xcdatamodel */,
 			);
-			currentVersion = 940BC0512743AEB80022D8B6 /* Test2_0.xcdatamodel */;
+			currentVersion = 94B7CEE5274C354A004952E3 /* Test2_0.xcdatamodel */;
 			path = Test2_0.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

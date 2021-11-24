@@ -11,28 +11,16 @@ struct Images: View {
     
     @Binding var imgarray: [UIImage]
     @State var imgs: UIImage?
+    @State private var imgarray2: [UIImage] = []
     let screenSize = UIScreen.main.bounds
-    //    @State var finalScale: CGFloat = 1
-    //    @State var currentScale: CGFloat = 0
     var body: some View {
         
         List{
-            //            HStack{
-            //                Image(uiImage: imgs!)
-            //            }
             TabView{
-                ForEach(imgarray, id: \.self){ i in
+                ForEach(imgarray2, id: \.self){ i in
                     Image(uiImage: i)
                         .resizable()
                         .scaledToFit()
-                    
-                    //                        I don't know if it works with a scroll view
-                    //                        .scaleEffect(finalScale + currentScale)
-                    //                        .gesture(
-                    //                            MagnificationGesture().onChanged{newScale in currentScale = newScale}
-                    //                                .onEnded{scale in finalScale = scale
-                    //                                    currentScale = 0
-                    //                                })
                 }
             }.tabViewStyle(PageTabViewStyle())
                 .frame(height: 650)
@@ -40,19 +28,21 @@ struct Images: View {
                 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
                 .background(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
         }
+        .onAppear(perform: {
+            imgarray2 = imgarray
+            orderImgarray(imgs: imgs!, imgarrayx: imgarray2)
+        })
         
         .navigationTitle("Associated Images")
         
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar{
-            ToolbarItemGroup(placement: .bottomBar){
-                Spacer()
-                Button(action: {
-                    //               INSERT ACTION
-                }, label: {
-                    Image(systemName: "trash.fill")
-                }
-                )
+        .navigationBarTitleDisplayMode(.inline)    }
+    
+    func orderImgarray(imgs: UIImage, imgarrayx: [UIImage]) {
+        
+        for img in imgarrayx {
+            if (imgs == img){
+                self.imgarray2.removeAll{$0 == img}
+                self.imgarray2.insert(img, at: 0)
             }
         }
     }

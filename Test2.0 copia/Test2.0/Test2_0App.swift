@@ -13,8 +13,14 @@ struct Test2_0App: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            if(UserDefaults.standard.bool(forKey: "LaunchBefore")){
+                ContentView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            }else{
+                Onboarding()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            }
+         
         }
     }
 }

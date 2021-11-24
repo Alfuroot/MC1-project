@@ -18,6 +18,7 @@ struct TextReform: View {
     @State private var lessonContent: String = ""
     @State private var lessonTitle: String = ""
     @Binding var txtarray: [String]
+    @Binding var txttitlearray: [String]
     
     var body: some View {
         NavigationView {
@@ -35,14 +36,13 @@ struct TextReform: View {
                 if showTitleWindow{Color.black
                     .opacity(0.1).ignoresSafeArea()}
                 
-//                AZAlert(title: "Writing reformulation", subtitle: "Insert the title to save your text", isShown: $showTitleWindow, text: $lessonTitle, onDone: { text in
-//                    txtarray.append(lessonContent)
-//                    addTxtref()
-//                    showTitleWindow.toggle()
-//                    Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-//                        presentationMode.wrappedValue.dismiss()
-//                    }
-//                })
+                txtAZAlert(title: "Writing reformulation", subtitle: "Insert the title to save your text", isShown: $showTitleWindow, text: $lessonTitle, item: $item, onDone: { text in
+                                    txtarray.append(lessonContent)
+                                    txttitlearray.append(text)
+                                    addTxtref()
+                                    showTitleWindow.toggle()
+                                    showmodal = false
+                                })
                 
             }
             .navigationTitle("Writing Reformulation")
@@ -67,9 +67,11 @@ struct TextReform: View {
             
         }.interactiveDismissDisabled(showTitleWindow)
     }
+    
     func addTxtref(){
         withAnimation {
             item.reformtxt = txtarray
+            item.reformtxttitle = txttitlearray
             do {
                 try viewContext.save()
             } catch {
