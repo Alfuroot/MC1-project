@@ -52,7 +52,7 @@ struct Record: View {
                                     }
                                 }
                             }) {
-                                Image(systemName: "play.circle.fill").font(Font.system(size: 55))
+                                Image(systemName: "play.circle.fill").font(Font.system(size: 65))
                                     .padding(.leading, 10)
                             }
                         } else {
@@ -62,23 +62,41 @@ struct Record: View {
                                 timer = nil
                                 time = 0
                             }) {
-                                Image(systemName: "stop.circle.fill").font(Font.system(size: 55))
+                                Image(systemName: "stop.circle.fill").font(Font.system(size: 65))
                                     .padding(.leading, 10)
                             }
                         }
+                        VStack{
                         Slider(value: $time, in: 0...durationInSeconds).disabled(!audioPlayer.isPlaying)
+                            .padding(.horizontal)
+                            .padding(.bottom, 2)
+                            
+                            HStack{
+                                Spacer()
+                            if durationInSeconds < 10{
+                                Text("00:0\(formatter.string(from: durationInSeconds)!)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            } else if durationInSeconds < 60 {
+                                Text("00:\(formatter.string(from: durationInSeconds)!)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            } else if durationInSeconds < 600 {
+                                Text("0\(formatter.string(from: durationInSeconds)!)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            } else {
+                                Text("\(formatter.string(from: durationInSeconds)!)")
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                            }.padding(.trailing, 20)
+
+                        }
 
                     }.listRowBackground(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
-                    
-                    Section(header:
-                                HStack(alignment: .center){
-                        if isError{
-                            Image(systemName: "exclamationmark.triangle").font(Font.system(size: 17, weight: .bold)
-                            ).foregroundColor(Color.yellow)
-                            
-                            
-                            Text("You did not use the keywords correctly")}}
-                                .font(.caption).listRowInsets(EdgeInsets(top: 10, leading: 25, bottom: 0, trailing: 0))){
+                      
+                    Section{
                         
                         TextEditor(text: $transcription2)
                             .disabled(true)

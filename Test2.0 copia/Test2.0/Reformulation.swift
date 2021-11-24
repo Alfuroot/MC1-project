@@ -13,7 +13,6 @@ struct Reformulation: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @Binding var item: Item
-    //    @Binding var showmodal: Bool
     @Binding var showReformulation: Bool
     @Binding var currtxt: String
     @Binding var index: Int
@@ -24,33 +23,19 @@ struct Reformulation: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Form{
-                    
-                    Section(header:
-                                
-                                
-                                HStack(alignment: .center){
-                        if isError{
-                            Image(systemName: "exclamationmark.triangle").font(Font.system(size: 17, weight: .bold)
-                            ).foregroundColor(Color.yellow)
-                            
-                            Text("You did not use the keywords correctly")}}
-                                .font(.caption).listRowInsets(EdgeInsets(top: 10, leading: 25, bottom: 0, trailing: 0))){
-                        
-                        if isEditable {TextEditor(text: $currtxt).frame( height: 695)}
-                        else {Text ("\(currtxt)").frame( height: 695).frame(maxWidth: .infinity, alignment: .top)}
-                    }
-                }
+            Form{
                 
+                if isEditable {TextEditor(text: $currtxt).frame( height: 695)}
+                else{TextEditor(text: .constant(currtxt)).frame( height: 695).disabled(true)}
             }
-            //                .navigationTitle("\(???)")
-            
+
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
                         if isEditable{
                             setTxtref(currtxtx: currtxt)
+                            isEditable.toggle()
+                            
                         }
                         else{
                             isEditable.toggle()
@@ -64,7 +49,6 @@ struct Reformulation: View {
                 }
                 ToolbarItem(placement: .navigationBarLeading){
                     Button(action: {
-                        //                        showReformulation = false
                         presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("Cancel")
@@ -73,8 +57,6 @@ struct Reformulation: View {
                 
             }.navigationBarTitleDisplayMode(.inline)
                 .navigationTitle(item.reformtxttitle![index])
-            
-            
             
         }.interactiveDismissDisabled(showTitleWindow)
         

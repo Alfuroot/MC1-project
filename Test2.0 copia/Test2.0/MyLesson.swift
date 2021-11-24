@@ -39,7 +39,6 @@ struct MyLesson: View {
     @State var txtarray: [String] = []
     @State var txttitlearray: [String] = []
     @State private var transcription: String = ""
-    var isNotCorrect = false
     var lessonIsEmpty = false
     @State var deleteFile: Bool = false
     
@@ -51,18 +50,20 @@ struct MyLesson: View {
                     .font(.body)
                     .foregroundColor(.black)
                     .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+                    .lineLimit(5)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             .onTapGesture{
                 //                showmodal = true
                 showlesson = true
             }
-            .frame(width: 377, height: 130, alignment: .center)
+            .frame(width: 377, alignment: .center)
             .background(Color.white)
             .cornerRadius(10)
             .padding()
             
             if (imgarray.isEmpty && txtarray.isEmpty && item.audiocount == 0) {
-                Text("Now your lesson is ready, start reformulate it. Good study!")
+                Text("Now your lesson is ready, start reformulate it. \nGood study!")
                     .font(.body)
                     .foregroundColor(Color.gray)
                 .multilineTextAlignment(.center)}
@@ -133,9 +134,27 @@ struct MyLesson: View {
                                             .frame(maxWidth: 150)
                                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
                                         
-                                        Text("\(formatter.string(from: durationInSeconds)!)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
+                                            if durationInSeconds < 10{
+                                                Text("00:0\(formatter.string(from: durationInSeconds)!)")
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.gray)
+                                            } else if durationInSeconds < 60 {
+                                                Text("00:\(formatter.string(from: durationInSeconds)!)")
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.gray)
+                                            } else if durationInSeconds < 600 {
+                                                Text("0\(formatter.string(from: durationInSeconds)!)")
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.gray)
+                                            } else {
+                                                Text("\(formatter.string(from: durationInSeconds)!)")
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.gray)
+                                            }
+                                    
+//                                            "\(formatter.string(from: durationInSeconds)!)")
+//                                            .font(.subheadline)
+//                                            .foregroundColor(.gray)
                                     }
                                     VStack{
                                         Spacer()
@@ -194,6 +213,7 @@ struct MyLesson: View {
                                     Image(uiImage: imgarray[index])
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
+                                        .contentShape(RoundedRectangle(cornerRadius: 10))
                                         .contextMenu {
                                             Button(action: {
                                                 imgarray.removeAll {$0 == imgarray[index]}
@@ -245,14 +265,14 @@ struct MyLesson: View {
                                             .foregroundColor(.black)
                                             .fontWeight(.bold)
                                             .padding(EdgeInsets(top: 0, leading: 0, bottom: -4, trailing: 0))
-                                        if isNotCorrect{
-                                            Image(systemName: "exclamationmark.triangle").font(Font.system(size: 17, weight: .bold)
-                                            ).foregroundColor(Color.blue)
-                                        }
+                                            .lineLimit(1)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
                                     }
                                     Text("\(txt)")
                                         .font(.body)
                                         .foregroundColor(.black)
+                                        .lineLimit(5)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                     
                                 }.padding(EdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 15))
                                     .background(Color.white)

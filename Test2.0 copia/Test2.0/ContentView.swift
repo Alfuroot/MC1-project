@@ -18,18 +18,8 @@ struct ContentView: View {
     private var items: FetchedResults<Item>;
     @State var showmodal: Bool = false
     
-    
     var body: some View {
         NavigationView{
-            
-            //            List {
-            //            ForEach(searchResults, id: \.self) {name in
-            //                    NavigationLink(destination: Text(name)) {
-            //                        Text(name)
-            //                    }
-            //                }
-            //
-            //            }
             List {
                 ForEach(items) { item in
                     Section{
@@ -40,15 +30,10 @@ struct ContentView: View {
                                 .bold()
                                 .lineLimit(1)
                             
-                            //                                .frame(height: 15)
-                            
-                            
                             Text("\(item.tag!)\n")
                                 .font(.subheadline)
                                 .foregroundColor(item.pin ? Color.white : Color.black)
                                 .lineLimit(1)
-                            
-                            //                                .frame(height: 18)
                             
                             HStack{
                                 
@@ -112,7 +97,6 @@ struct ContentView: View {
                 .foregroundColor(Color.gray)
                 .padding(.vertical, 10)
                 .cornerRadius(10)
-                
             }
             .navigationTitle("My Lessons")
             .toolbar{
@@ -123,10 +107,7 @@ struct ContentView: View {
                         Image(systemName: "plus")
                     })
                 }
-                ToolbarItem(placement: .navigationBarLeading){
-                    EditButton().font(Font.system(size: 20))
-                    //                        .disabled(items.lessontxt == nil)
-                }
+
             }
             .navigationBarTitleDisplayMode(.inline)
         }
