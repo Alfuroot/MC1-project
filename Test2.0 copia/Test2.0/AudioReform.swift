@@ -41,6 +41,17 @@ struct AudioReform: View {
   
             VStack {
                 
+                    HStack{
+                        if (self.isPlaying){
+                        ForEach(mic.soundSamples, id: \.self) { level in
+                                            BarView(value: self.normalizeSoundLevel(level: level))
+                        }
+                            
+                        } else {}
+                    }.frame(height: 100)
+                    .padding(.bottom, 100)
+                    
+                
                 Text("\(makeTimeString(hours: hours, minutes: minutes, seconds: seconds))")
                     .font(.system(size: 40))
                     .padding(.bottom, -40)
@@ -80,14 +91,7 @@ struct AudioReform: View {
                         }.padding(.top, 120)
                     }
                 } else {
-                    HStack{
-                       
-                    ForEach(mic.soundSamples, id: \.self) { level in
-                                        BarView(value: self.normalizeSoundLevel(level: level))
-                    }.frame(height: 100)
-                            .padding(.bottom, 100)
-                        
-                    }
+                    
                     Button(action: {
                         timer?.invalidate()
                         timer = nil
@@ -96,6 +100,7 @@ struct AudioReform: View {
                         self.hours = 0
                         isShown = true
                         self.audioRecorder.stopRecording()
+                        self.isPlaying.toggle()
                     }) {
                         ZStack{
                             Circle()
@@ -113,7 +118,7 @@ struct AudioReform: View {
                 }
             
             }.navigationBarTitle("Voice recorder")
-                    .frame(height: screenSize.height)
+                    .frame(width: screenSize.width, height: screenSize.height)
                     .background(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
                  
                     .background(Color.yellow)
@@ -164,7 +169,7 @@ struct BarView: View {
         ZStack {
    
             RoundedRectangle(cornerRadius: 20)
-                .fill(LinearGradient(gradient: Gradient(colors: [.cyan, .blue]),
+                .fill(LinearGradient(gradient: Gradient(colors: [.yellow, .orange]),
                                      startPoint: .top,
                                      endPoint: .bottom))
 

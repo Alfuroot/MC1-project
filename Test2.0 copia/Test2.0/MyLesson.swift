@@ -54,7 +54,9 @@ struct MyLesson: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .onTapGesture{
-                //                showmodal = true
+                if (audioPlayer.isPlaying == true) {
+                    audioPlayer.stopPlayback()
+                }
                 showlesson = true
             }
             .frame(width: 377, alignment: .center)
@@ -101,7 +103,6 @@ struct MyLesson: View {
                                             self.audioPlayer.startPlayback(audio: recording.fileURL)
                                             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
                                                 time = time + 1
-                                                print(time)
                                                 if (time >= durationInSeconds){
                                                     self.audioPlayer.stopPlayback()
                                                     timer?.invalidate()
@@ -166,6 +167,9 @@ struct MyLesson: View {
                                     .background(Color.white)
                                     .cornerRadius(10)
                                     .onTapGesture{
+                                        if (audioPlayer.isPlaying == true) {
+                                            audioPlayer.stopPlayback()
+                                        }
                                         recordurl = recording.fileURL
                                         self.showRecord = true
                                     }
@@ -212,27 +216,29 @@ struct MyLesson: View {
                                     
                                     Image(uiImage: imgarray[index])
                                         .resizable()
+                                        .rotationEffect(.degrees(90))
                                         .aspectRatio(contentMode: .fill)
                                         .contentShape(RoundedRectangle(cornerRadius: 10))
-                                        .contextMenu {
-                                            Button(action: {
-                                                imgarray.removeAll {$0 == imgarray[index]}
-                                                binary = coreDataObjectFromImages(images: imgarray)!
-                                                addImage(binimage: binary!)
-                                                imgarray = imagesFromCoreData(object: item.strdimg)!
-                                                setImg(imgbool: imgarray.isEmpty)
-                                            }) {
-                                                Text("Delete")
-                                                Image(systemName: "trash.fill")
-                                            }
-                                        }
+                                        
+                                }
+                                .contextMenu {
+                                    Button(action: {
+                                        imgarray.removeAll {$0 == imgarray[index]}
+                                        binary = coreDataObjectFromImages(images: imgarray)!
+                                        addImage(binimage: binary!)
+                                        imgarray = imagesFromCoreData(object: item.strdimg)!
+                                        setImg(imgbool: imgarray.isEmpty)
+                                    }) {
+                                        Text("Delete")
+                                        Image(systemName: "trash.fill")
+                                    }
                                 }
                                 
                             }.frame(width: 150, height: 150)
                                 .clipped()
                                 .cornerRadius(10)
                             
-                            Spacer(minLength: 16)
+                            Spacer(minLength: 20)
                             
                         }}
                 }
@@ -277,6 +283,9 @@ struct MyLesson: View {
                                 }.padding(EdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 15))
                                     .background(Color.white)
                                     .onTapGesture{
+                                        if (audioPlayer.isPlaying == true) {
+                                            audioPlayer.stopPlayback()
+                                        }
                                         currtxt = txt
                                         index = txtarray.index(of: txt)!
                                         self.showReformulation = true
@@ -303,7 +312,6 @@ struct MyLesson: View {
                     }.frame(maxHeight: .infinity)
                 }
             }
-            //                Text("\(transcription)")
             
         }
         .background(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
@@ -347,13 +355,22 @@ struct MyLesson: View {
         }
         .confirmationDialog("",isPresented: $showingActionSheet) {
             Button("Audio reformulation"){
+                if (audioPlayer.isPlaying == true) {
+                    audioPlayer.stopPlayback()
+                }
                 showaudio.toggle()
                 showmodal.toggle()
             }
             Button("Associate image"){
+                if (audioPlayer.isPlaying == true) {
+                    audioPlayer.stopPlayback()
+                }
                 showPicker = true
             }
             Button("Writing reformulation"){
+                if (audioPlayer.isPlaying == true) {
+                    audioPlayer.stopPlayback()
+                }
                 showmodal.toggle()
                 showwriting.toggle()
             }
@@ -368,6 +385,11 @@ struct MyLesson: View {
             if (item.strdimg != nil){
                 imgarray = imagesFromCoreData(object: item.strdimg)!
                 setImg(imgbool: imgarray.isEmpty)
+            }
+        })
+        .onDisappear(perform: {
+            if (audioPlayer.isPlaying == true) {
+                audioPlayer.stopPlayback()
             }
         })
         

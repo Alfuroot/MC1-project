@@ -37,7 +37,6 @@ struct ListAudio: View {
                                     self.audioPlayer.startPlayback(audio: recording.fileURL)
                                     timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
                                         time = time + 1
-                                        print(time)
                                         if (time >= durationInSeconds){
                                             self.audioPlayer.stopPlayback()
                                             timer?.invalidate()

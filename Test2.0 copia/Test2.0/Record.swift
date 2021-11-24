@@ -43,7 +43,6 @@ struct Record: View {
                                 self.audioPlayer.startPlayback(audio: recordurl)
                                 timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
                                     time = time + 1
-                                    print(time)
                                     if (time >= durationInSeconds){
                                         self.audioPlayer.stopPlayback()
                                         timer?.invalidate()
@@ -67,9 +66,10 @@ struct Record: View {
                             }
                         }
                         VStack{
-                        Slider(value: $time, in: 0...durationInSeconds).disabled(!audioPlayer.isPlaying)
+                        Slider(value: $time, in: 0...durationInSeconds).disabled(true)
                             .padding(.horizontal)
                             .padding(.bottom, 2)
+                            .padding(.top, 25)
                             
                             HStack{
                                 Spacer()
@@ -100,7 +100,6 @@ struct Record: View {
                         
                         TextEditor(text: $transcription2)
                             .disabled(true)
-                            .frame(height: 570)
                     }
                 }.onAppear(perform: {transcribe(audioURL: recordurl)})
                 
@@ -123,6 +122,9 @@ struct Record: View {
             
             
         }
+        .onDisappear(perform: {if (audioPlayer.isPlaying == true) {
+            audioPlayer.stopPlayback()
+        }})
         .interactiveDismissDisabled(showTitleWindow)
         
     }

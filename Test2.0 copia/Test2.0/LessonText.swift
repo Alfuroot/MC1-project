@@ -22,7 +22,7 @@ struct LessonText: View {
                 Form{
                     
                     Text("\(item.lessontxt!)")
-                        .frame( height: 695, alignment: .topLeading)
+                        .frame(alignment: .topLeading)
                         .font(.body)
                     
                 }.listRowInsets(EdgeInsets(top: -10, leading: 0, bottom: 0, trailing: 0))

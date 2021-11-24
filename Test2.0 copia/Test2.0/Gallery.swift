@@ -29,10 +29,10 @@ struct Gallery: View {
                                        ], spacing: 3) {
                         ForEach(0..<imgarray.count, id: \.self) { index in
                             NavigationLink(destination: Images(imgarray: $imgarray, imgs: imgarray[index])) {
-
-                            Image(uiImage: imgarray[index])
                         
+                            Image(uiImage: imgarray[index])
                                 .resizable()
+                                .rotationEffect(.degrees(90))
                                 .frame(width: geo.size.width/3, height: geo.size.width/3)
                                 .aspectRatio(contentMode: .fill)
 
