@@ -60,7 +60,7 @@ struct AZAlert: View {
                     else {
                         self.err = true
                     }
-
+                    
                 }.padding().frame(maxWidth: .infinity)
                     .disabled(text.isEmpty)
             }.fixedSize(horizontal: false, vertical: true)
@@ -70,8 +70,8 @@ struct AZAlert: View {
         .background(Color(#colorLiteral(red: 0.9268686175, green: 0.9416290522, blue: 0.9456014037, alpha: 1)))
         .clipShape(RoundedRectangle(cornerRadius: 20.0, style: .continuous))
         .offset(y: isShown ? 0 : screenSize.height)
-                .animation(.spring())
-//        .shadow(color: Color(#colorLiteral(red: 0.8596749902, green: 0.854565084, blue: 0.8636032343, alpha: 1)), radius: 6, x: -9, y: -9)
+        .animation(.spring())
+        //        .shadow(color: Color(#colorLiteral(red: 0.8596749902, green: 0.854565084, blue: 0.8636032343, alpha: 1)), radius: 6, x: -9, y: -9)
         
     }
 }

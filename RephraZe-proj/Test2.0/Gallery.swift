@@ -29,19 +29,19 @@ struct Gallery: View {
                                        ], spacing: 3) {
                         ForEach(0..<imgarray.count, id: \.self) { index in
                             NavigationLink(destination: Images(imgarray: $imgarray, imgs: imgarray[index])) {
-                        
-                            Image(uiImage: imgarray[index])
-                                .resizable()
-                                .rotationEffect(.degrees(90))
-                                .frame(width: geo.size.width/3, height: geo.size.width/3)
-                                .aspectRatio(contentMode: .fill)
-
+                                
+                                Image(uiImage: imgarray[index])
+                                    .resizable()
+                                //                                .rotationEffect(.degrees(90))
+                                    .frame(width: geo.size.width/3, height: geo.size.width/3)
+                                    .aspectRatio(contentMode: .fill)
+                                
                             }
                             //                                .font(.system(size: 30))
                             //                                .frame(width: geo.size.width/3, height: geo.size.width/3)
                             //                                .background(Color.red)
                         }
-
+                        
                     }
                     
                 }
@@ -52,17 +52,17 @@ struct Gallery: View {
                 Text("\(imgarray.count) photos")
             }
         }
-
+        
         .background(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
         
         .navigationTitle("Gallery")
         
-                                            
-
+        
+        
         
     }
     
-
+    
 }
 
 //struct Gallery_Previews: PreviewProvider {

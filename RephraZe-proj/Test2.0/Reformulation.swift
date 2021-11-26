@@ -19,16 +19,22 @@ struct Reformulation: View {
     @State private var showTitleWindow = false
     @State private var lessonContent: String = ""
     var isError = true
+    @FocusState private var isFocused: Bool
     @State var isEditable = false
     
     var body: some View {
         NavigationView {
             Form{
                 
-                if isEditable {TextEditor(text: $currtxt).frame( height: 695)}
-                else{TextEditor(text: .constant(currtxt)).frame( height: 695).disabled(true)}
+                if isEditable {
+                    TextEditor(text: $currtxt)
+                        .focused($isFocused)
+                        .frame( maxHeight: .infinity)
+                }
+                else{Text(currtxt)
+                }
             }
-
+            
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
@@ -36,9 +42,13 @@ struct Reformulation: View {
                             setTxtref(currtxtx: currtxt)
                             isEditable.toggle()
                             
+                            
                         }
                         else{
                             isEditable.toggle()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+                                isFocused = true
+                            }
                         }
                     }, label: {
                         if isEditable{

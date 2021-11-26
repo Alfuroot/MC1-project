@@ -13,7 +13,7 @@ struct LessonText: View {
     
     @Binding var item: Item
     @Binding var showlesson: Bool
-
+    
     var body: some View {
         NavigationView {
             
@@ -42,7 +42,7 @@ struct LessonText: View {
             
             
             
-        
+            
         }
         
     }

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "940BC0412743AEB80022D8B6"
-               BuildableName = "Test2.0.app"
+               BuildableName = "RephraZe.app"
                BlueprintName = "RephraZe"
                ReferencedContainer = "container:RephraZe.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "940BC0562743AEB80022D8B6"
-               BuildableName = "Test2.0Tests.xctest"
+               BuildableName = "RephraZeTests.xctest"
                BlueprintName = "RephraZeTests"
                ReferencedContainer = "container:RephraZe.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "940BC0602743AEB80022D8B6"
-               BuildableName = "Test2.0UITests.xctest"
+               BuildableName = "RephraZeUITests.xctest"
                BlueprintName = "RephraZeUITests"
                ReferencedContainer = "container:RephraZe.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "940BC0412743AEB80022D8B6"
-            BuildableName = "Test2.0.app"
+            BuildableName = "RephraZe.app"
             BlueprintName = "RephraZe"
             ReferencedContainer = "container:RephraZe.xcodeproj">
          </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "940BC0412743AEB80022D8B6"
-            BuildableName = "Test2.0.app"
+            BuildableName = "RephraZe.app"
             BlueprintName = "RephraZe"
             ReferencedContainer = "container:RephraZe.xcodeproj">
          </BuildableReference>

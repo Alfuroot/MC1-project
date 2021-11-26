@@ -66,36 +66,36 @@ struct Record: View {
                             }
                         }
                         VStack{
-                        Slider(value: $time, in: 0...durationInSeconds).disabled(true)
-                            .padding(.horizontal)
-                            .padding(.bottom, 2)
-                            .padding(.top, 25)
+                            Slider(value: $time, in: 0...durationInSeconds).disabled(true)
+                                .padding(.horizontal)
+                                .padding(.bottom, 2)
+                                .padding(.top, 25)
                             
                             HStack{
                                 Spacer()
-                            if durationInSeconds < 10{
-                                Text("00:0\(formatter.string(from: durationInSeconds)!)")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                            } else if durationInSeconds < 60 {
-                                Text("00:\(formatter.string(from: durationInSeconds)!)")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                            } else if durationInSeconds < 600 {
-                                Text("0\(formatter.string(from: durationInSeconds)!)")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                            } else {
-                                Text("\(formatter.string(from: durationInSeconds)!)")
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                            }
+                                if durationInSeconds < 10{
+                                    Text("00:0\(formatter.string(from: durationInSeconds)!)")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                } else if durationInSeconds < 60 {
+                                    Text("00:\(formatter.string(from: durationInSeconds)!)")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                } else if durationInSeconds < 600 {
+                                    Text("0\(formatter.string(from: durationInSeconds)!)")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                } else {
+                                    Text("\(formatter.string(from: durationInSeconds)!)")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
                             }.padding(.trailing, 20)
-
+                            
                         }
-
+                        
                     }.listRowBackground(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
-                      
+                    
                     Section{
                         
                         TextEditor(text: $transcription2)

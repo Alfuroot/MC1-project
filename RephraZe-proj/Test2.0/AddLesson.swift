@@ -23,7 +23,7 @@ struct AddLesson: View {
                     Section(header: Text("Title and Category:")){
                         
                         TextField("Title...", text: $lessonTitle)
-                            
+                        
                         TextField("Category...", text: $lessonTag)
                         
                     }

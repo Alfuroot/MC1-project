@@ -30,7 +30,7 @@ struct ContentView: View {
                                 .bold()
                                 .lineLimit(1)
                             
-                            Text("\(item.tag!)\n")
+                            Text("\(item.tag!)")
                                 .font(.subheadline)
                                 .foregroundColor(item.pin ? Color.white : Color.black)
                                 .lineLimit(1)
@@ -107,7 +107,7 @@ struct ContentView: View {
                         Image(systemName: "plus")
                     })
                 }
-
+                
             }
             .navigationBarTitleDisplayMode(.inline)
         }

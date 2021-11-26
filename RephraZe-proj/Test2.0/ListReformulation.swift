@@ -17,7 +17,7 @@ struct ListReformulation: View {
     @State var showReformulation2: Bool = false
     @State var currtxt: String = ""
     @State var index: Int = 0
-
+    
     
     var body: some View {
         VStack{
@@ -50,23 +50,23 @@ struct ListReformulation: View {
         }.background(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
             .sheet(isPresented: $showReformulation2){
                 Reformulation(item: $item, showReformulation: $showReformulation2, currtxt: $currtxt, index: $index)
-
+                
             }
             .navigationTitle("Writing Reformulation")
         
             .toolbar{
-            
+                
                 ToolbarItem(placement: .bottomBar){
-                 
+                    
                     Text("\(txtarray.count) reformulation")
-
+                    
                     
                 }
             }
         
         
     }
-
+    
 }
 
 //struct ListReformulation_Previews: PreviewProvider {

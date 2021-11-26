@@ -37,12 +37,12 @@ struct TextReform: View {
                     .opacity(0.1).ignoresSafeArea()}
                 
                 txtAZAlert(title: "Writing reformulation", subtitle: "Insert the title to save your text", isShown: $showTitleWindow, text: $lessonTitle, item: $item, onDone: { text in
-                                    txtarray.append(lessonContent)
-                                    txttitlearray.append(text)
-                                    addTxtref()
-                                    showTitleWindow.toggle()
-                                    showmodal = false
-                                })
+                    txtarray.append(lessonContent)
+                    txttitlearray.append(text)
+                    addTxtref()
+                    showTitleWindow.toggle()
+                    showmodal = false
+                })
                 
             }
             .navigationTitle("Writing Reformulation")

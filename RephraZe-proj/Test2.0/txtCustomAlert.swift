@@ -27,8 +27,8 @@ struct txtAZAlert: View {
             
             Text(title)
                 .font(.headline)
-                Text(subtitle)
-                    .font(.subheadline)
+            Text(subtitle)
+                .font(.subheadline)
             
             TextField("Title...", text: $text)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -60,7 +60,7 @@ struct txtAZAlert: View {
         .clipShape(RoundedRectangle(cornerRadius: 20.0, style: .continuous))
         .offset(y: isShown ? 0 : screenSize.height)
         //        .animation(.spring())
-        .shadow(color: Color(#colorLiteral(red: 0.8596749902, green: 0.854565084, blue: 0.8636032343, alpha: 1)), radius: 6, x: -9, y: -9)
+        //        .shadow(color: Color(#colorLiteral(red: 0.8596749902, green: 0.854565084, blue: 0.8636032343, alpha: 1)), radius: 6, x: -9, y: -9)
         
     }
     

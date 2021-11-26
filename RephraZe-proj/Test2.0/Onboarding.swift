@@ -26,7 +26,7 @@ struct Onboarding: View {
                 
                 HStack{
                     VStack{
-                        Image(systemName: "doc.plaintext")
+                        Image(systemName: "text.book.closed")
                             .foregroundColor(Color("AccentColor"))
                             .font(.system(size: 35, weight: .regular))
                             .padding(.bottom, 50.0)
@@ -49,12 +49,12 @@ struct Onboarding: View {
                     
                     VStack(alignment: .leading, spacing: 10.0){
                         VStack(alignment: .leading, spacing: 10.0) {
-                            Text("Keyword Research")
+                            Text("Keep Track")
                                 .font(.headline)
                                 .fontWeight(.semibold)
                                 .multilineTextAlignment(.leading)
                             
-                            Text("Paste your lesson \nand start your study session.")
+                            Text("Paste your lesson and \nstart your study session.")
                                 .fontWeight(.regular)
                                 .foregroundColor(Color.gray)
                             .multilineTextAlignment(.leading)}

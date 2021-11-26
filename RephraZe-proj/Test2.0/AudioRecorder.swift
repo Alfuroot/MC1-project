@@ -27,33 +27,33 @@ class AudioRecorder: NSObject,ObservableObject {
     }
     
     func startRecording(title: String) {
-            let recordingSession = AVAudioSession.sharedInstance()
+        let recordingSession = AVAudioSession.sharedInstance()
         
         do {
-                    try recordingSession.setCategory(.playAndRecord, mode: .default)
-                    try recordingSession.setActive(true)
-                } catch {
-                    print("Failed to set up recording session")
-                }
+            try recordingSession.setCategory(.playAndRecord, mode: .default)
+            try recordingSession.setActive(true)
+        } catch {
+            print("Failed to set up recording session")
+        }
         let documentPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let audioFilename = documentPath.appendingPathComponent("\(title).m4a")
         let settings = [
-                    AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                    AVSampleRateKey: 12000,
-                    AVNumberOfChannelsKey: 1,
-                    AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-                ]
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
         
         do {
-                    audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-                    audioRecorder.record()
-
-                    recording = true
-                } catch {
-                    print("Could not start recording")
-                }
-        
+            audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioRecorder.record()
+            
+            recording = true
+        } catch {
+            print("Could not start recording")
         }
+        
+    }
     
     func deleteRecording(url: URL){
         do {
@@ -83,29 +83,29 @@ class AudioRecorder: NSObject,ObservableObject {
     
     func stopRecording() {
         
-            audioRecorder.stop()
-            recording = false
+        audioRecorder.stop()
+        recording = false
         
         fetchRecordings()
-        }
+    }
     
     func fetchRecordings() {
-            recordings.removeAll()
-            let fileManager = FileManager.default
-            let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let directoryContents = try! fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
-            for audio in directoryContents {
-                    let recording = Recording(fileURL: audio, createdAt: getCreationDate(for: audio))
-                    recordings.append(recording)
-                }
-            recordings.sort(by: { $0.createdAt.compare($1.createdAt) == .orderedAscending})
-                
-                objectWillChange.send(self)
+        recordings.removeAll()
+        let fileManager = FileManager.default
+        let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let directoryContents = try! fileManager.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil)
+        for audio in directoryContents {
+            let recording = Recording(fileURL: audio, createdAt: getCreationDate(for: audio))
+            recordings.append(recording)
         }
+        recordings.sort(by: { $0.createdAt.compare($1.createdAt) == .orderedAscending})
+        
+        objectWillChange.send(self)
+    }
     
     func getCreationDate(for file: URL) -> Date {
         if let attributes = try? FileManager.default.attributesOfItem(atPath: file.path) as [FileAttributeKey: Any],
-            let creationDate = attributes[FileAttributeKey.creationDate] as? Date {
+           let creationDate = attributes[FileAttributeKey.creationDate] as? Date {
             return creationDate
         } else {
             return Date()

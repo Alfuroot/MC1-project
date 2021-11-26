@@ -54,7 +54,9 @@ struct MyLesson: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .onTapGesture{
-                //                showmodal = true
+                if (audioPlayer.isPlaying == true) {
+                    audioPlayer.stopPlayback()
+                }
                 showlesson = true
             }
             .frame(width: 377, alignment: .center)
@@ -70,70 +72,68 @@ struct MyLesson: View {
             else{
                 
                 if (item.audiocount > 0) {
-                HStack{
-                    Text("Voice Reformulation")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    Spacer()
-                    NavigationLink(destination: ListAudio(audioRecorder: AudioRecorder(), item: $item)) {
-                        
-                        Text("Show all")
-                            .font(.body)
-                            .foregroundColor(Color("AccentColor"))
-                    }
-                }.padding(EdgeInsets(top: 10, leading: 16, bottom: 0, trailing: 16))
-                
-                
-                ScrollView (.horizontal, showsIndicators: false){
                     HStack{
-                        Spacer(minLength: 16)
+                        Text("Voice Reformulation")
+                            .font(.title2)
+                            .fontWeight(.bold)
                         
-                        ForEach((audioRecorder.recordings), id: \.createdAt) { recording in
-                            if (recording.fileURL.lastPathComponent.contains("\(item.title!)-")) {
-                                HStack{
-                                    let audioAsset = AVURLAsset.init(url: recording.fileURL, options: nil)
-                                    let duration = audioAsset.duration
-                                    let durationInSeconds = CMTimeGetSeconds(duration)
-                                    let formatter = DateComponentsFormatter()
-                                    if audioPlayer.isPlaying == false {
-                                        Button(action: {
-                                            self.audioPlayer.startPlayback(audio: recording.fileURL)
-                                            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
-                                                time = time + 1
-                                                print(time)
-                                                if (time >= durationInSeconds){
-                                                    self.audioPlayer.stopPlayback()
-                                                    timer?.invalidate()
-                                                    timer = nil
-                                                    time = 0
+                        Spacer()
+                        NavigationLink(destination: ListAudio(audioRecorder: AudioRecorder(), item: $item)) {
+                            
+                            Text("Show all")
+                                .font(.body)
+                                .foregroundColor(Color("AccentColor"))
+                        }
+                    }.padding(EdgeInsets(top: 10, leading: 16, bottom: 0, trailing: 16))
+                    
+                    
+                    ScrollView (.horizontal, showsIndicators: false){
+                        HStack{
+                            Spacer(minLength: 16)
+                            
+                            ForEach((audioRecorder.recordings), id: \.createdAt) { recording in
+                                if (recording.fileURL.lastPathComponent.contains("\(item.title!)-")) {
+                                    HStack{
+                                        let audioAsset = AVURLAsset.init(url: recording.fileURL, options: nil)
+                                        let duration = audioAsset.duration
+                                        let durationInSeconds = CMTimeGetSeconds(duration)
+                                        let formatter = DateComponentsFormatter()
+                                        if audioPlayer.isPlaying == false {
+                                            Button(action: {
+                                                self.audioPlayer.startPlayback(audio: recording.fileURL)
+                                                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ tempTimer in
+                                                    time = time + 1
+                                                    if (time >= durationInSeconds){
+                                                        self.audioPlayer.stopPlayback()
+                                                        timer?.invalidate()
+                                                        timer = nil
+                                                        time = 0
+                                                    }
                                                 }
+                                            }) {
+                                                Image(systemName: "play.circle.fill").font(Font.system(size: 55))
+                                                    .padding(.leading, 10)
                                             }
-                                        }) {
-                                            Image(systemName: "play.circle.fill").font(Font.system(size: 55))
-                                                .padding(.leading, 10)
+                                        } else {
+                                            Button(action: {
+                                                self.audioPlayer.stopPlayback()
+                                                timer?.invalidate()
+                                                timer = nil
+                                                time = 0
+                                            }) {
+                                                Image(systemName: "stop.circle.fill").font(Font.system(size: 55))
+                                                    .padding(.leading, 10)
+                                            }
                                         }
-                                    } else {
-                                        Button(action: {
-                                            self.audioPlayer.stopPlayback()
-                                            timer?.invalidate()
-                                            timer = nil
-                                            time = 0
-                                        }) {
-                                            Image(systemName: "stop.circle.fill").font(Font.system(size: 55))
-                                                .padding(.leading, 10)
-                                        }
-                                    }
-                                    VStack(alignment: .leading){
-                                        
-                                        Text("\(recording.fileURL.lastPathComponent)")
-                                            .font(.body)
-                                            .foregroundColor(.black)
-                                            .fontWeight(.bold)
-                                            .frame(height: 10)
-                                            .frame(maxWidth: 150)
-                                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
-                                        
+                                        VStack(alignment: .leading){
+                                            
+                                            Text("\(recording.fileURL.lastPathComponent)")
+                                                .font(.body)
+                                                .foregroundColor(.black)
+                                                .fontWeight(.bold)
+                                                .lineLimit(1)
+                                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 5, trailing: 0))
+                                            
                                             if durationInSeconds < 10{
                                                 Text("00:0\(formatter.string(from: durationInSeconds)!)")
                                                     .font(.subheadline)
@@ -151,39 +151,43 @@ struct MyLesson: View {
                                                     .font(.subheadline)
                                                     .foregroundColor(.gray)
                                             }
-                                    
-//                                            "\(formatter.string(from: durationInSeconds)!)")
-//                                            .font(.subheadline)
-//                                            .foregroundColor(.gray)
-                                    }
-                                    VStack{
-                                        Spacer()
-                                        Text("...")
-                                        //                                                .onTapGesture(perform: {transcribe(audioURL: recording.fileURL)})
-                                        
-                                    }.padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
-                                }.frame(height: 90)
-                                    .background(Color.white)
-                                    .cornerRadius(10)
-                                    .onTapGesture{
-                                        recordurl = recording.fileURL
-                                        self.showRecord = true
-                                    }
-                                    .contextMenu {
-                                        Button(action: {
-                                            audioRecorder.deleteRecording(url: recording.fileURL)
-                                            setAudio()
-                                        }) {
-                                            Text("Delete")
-                                            Image(systemName: "trash.fill")
+                                            
+                                            //                                            "\(formatter.string(from: durationInSeconds)!)")
+                                            //                                            .font(.subheadline)
+                                            //                                            .foregroundColor(.gray)
                                         }
-                                    }
+                                        Spacer()
+                                        VStack{
+                                            Spacer()
+                                            Text("...")
+                                            //                                                .onTapGesture(perform: {transcribe(audioURL: recording.fileURL)})
+                                            
+                                        }.padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
+                                    }.frame(width: 355,height: 90)
+                                        .background(Color.white)
+                                        .cornerRadius(10)
+                                        .onTapGesture{
+                                            if (audioPlayer.isPlaying == true) {
+                                                audioPlayer.stopPlayback()
+                                            }
+                                            recordurl = recording.fileURL
+                                            self.showRecord = true
+                                        }
+                                        .contextMenu {
+                                            Button(action: {
+                                                audioRecorder.deleteRecording(url: recording.fileURL)
+                                                setAudio()
+                                            }) {
+                                                Text("Delete")
+                                                Image(systemName: "trash.fill")
+                                            }
+                                        }
+                                }
                             }
+                            
+                            Spacer(minLength: 15)
                         }
-                        
-                        Spacer(minLength: 15)
-                    }
-                }.frame(maxHeight: .infinity)
+                    }.frame(maxHeight: .infinity)
                 }
                 if (imgarray.count > 0) {
                     HStack{
@@ -212,27 +216,28 @@ struct MyLesson: View {
                                     
                                     Image(uiImage: imgarray[index])
                                         .resizable()
+                                    //                                        .rotationEffect(.degrees(90))
                                         .aspectRatio(contentMode: .fill)
                                         .contentShape(RoundedRectangle(cornerRadius: 10))
-                                        .contextMenu {
-                                            Button(action: {
-                                                imgarray.removeAll {$0 == imgarray[index]}
-                                                binary = coreDataObjectFromImages(images: imgarray)!
-                                                addImage(binimage: binary!)
-                                                imgarray = imagesFromCoreData(object: item.strdimg)!
-                                                setImg(imgbool: imgarray.isEmpty)
-                                            }) {
-                                                Text("Delete")
-                                                Image(systemName: "trash.fill")
-                                            }
-                                        }
+                                }   .contextMenu {
+                                    Button(action: {
+                                        imgarray.removeAll {$0 == imgarray[index]}
+                                        binary = coreDataObjectFromImages(images: imgarray)!
+                                        addImage(binimage: binary!)
+                                        imgarray = imagesFromCoreData(object: item.strdimg)!
+                                        setImg(imgbool: imgarray.isEmpty)
+                                    }) {
+                                        Text("Delete")
+                                        Image(systemName: "trash.fill")
+                                    }
                                 }
+                                
                                 
                             }.frame(width: 150, height: 150)
                                 .clipped()
                                 .cornerRadius(10)
                             
-                            Spacer(minLength: 16)
+                            Spacer(minLength: 20)
                             
                         }}
                 }
@@ -277,6 +282,9 @@ struct MyLesson: View {
                                 }.padding(EdgeInsets(top: 5, leading: 15, bottom: 5, trailing: 15))
                                     .background(Color.white)
                                     .onTapGesture{
+                                        if (audioPlayer.isPlaying == true) {
+                                            audioPlayer.stopPlayback()
+                                        }
                                         currtxt = txt
                                         index = txtarray.index(of: txt)!
                                         self.showReformulation = true
@@ -303,7 +311,6 @@ struct MyLesson: View {
                     }.frame(maxHeight: .infinity)
                 }
             }
-            //                Text("\(transcription)")
             
         }
         .background(Color(red: 242 / 255, green: 242 / 255, blue: 247 / 255))
@@ -347,13 +354,22 @@ struct MyLesson: View {
         }
         .confirmationDialog("",isPresented: $showingActionSheet) {
             Button("Audio reformulation"){
+                if (audioPlayer.isPlaying == true) {
+                    audioPlayer.stopPlayback()
+                }
                 showaudio.toggle()
                 showmodal.toggle()
             }
             Button("Associate image"){
+                if (audioPlayer.isPlaying == true) {
+                    audioPlayer.stopPlayback()
+                }
                 showPicker = true
             }
             Button("Writing reformulation"){
+                if (audioPlayer.isPlaying == true) {
+                    audioPlayer.stopPlayback()
+                }
                 showmodal.toggle()
                 showwriting.toggle()
             }

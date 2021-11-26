@@ -20,7 +20,7 @@ struct Images: View {
                 ForEach(imgarray2, id: \.self){ i in
                     Image(uiImage: i)
                         .resizable()
-                        .rotationEffect(.degrees(90))
+                    //                        .rotationEffect(.degrees(90))
                         .scaledToFit()
                 }
             }.tabViewStyle(PageTabViewStyle())

@@ -20,7 +20,7 @@ struct Test2_0App: App {
                 Onboarding()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
             }
-         
+            
         }
     }
 }
