@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "940BC0412743AEB80022D8B6"
                BuildableName = "Test2.0.app"
-               BlueprintName = "Test2.0"
-               ReferencedContainer = "container:Test2.0.xcodeproj">
+               BlueprintName = "RephraZe"
+               ReferencedContainer = "container:RephraZe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "940BC0562743AEB80022D8B6"
                BuildableName = "Test2.0Tests.xctest"
-               BlueprintName = "Test2.0Tests"
-               ReferencedContainer = "container:Test2.0.xcodeproj">
+               BlueprintName = "RephraZeTests"
+               ReferencedContainer = "container:RephraZe.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -44,8 +44,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "940BC0602743AEB80022D8B6"
                BuildableName = "Test2.0UITests.xctest"
-               BlueprintName = "Test2.0UITests"
-               ReferencedContainer = "container:Test2.0.xcodeproj">
+               BlueprintName = "RephraZeUITests"
+               ReferencedContainer = "container:RephraZe.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -66,8 +66,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "940BC0412743AEB80022D8B6"
             BuildableName = "Test2.0.app"
-            BlueprintName = "Test2.0"
-            ReferencedContainer = "container:Test2.0.xcodeproj">
+            BlueprintName = "RephraZe"
+            ReferencedContainer = "container:RephraZe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -83,8 +83,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "940BC0412743AEB80022D8B6"
             BuildableName = "Test2.0.app"
-            BlueprintName = "Test2.0"
-            ReferencedContainer = "container:Test2.0.xcodeproj">
+            BlueprintName = "RephraZe"
+            ReferencedContainer = "container:RephraZe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
